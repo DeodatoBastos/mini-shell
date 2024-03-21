@@ -1,0 +1,2 @@
+You entered the first number as: 12
+You entered the second number as: 13
