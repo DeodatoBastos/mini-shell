@@ -24,6 +24,10 @@ char *new_string(char *str) {
 
 int main() {
   int copy_in = STDIN_FILENO, copy_out = STDOUT_FILENO;
+  char *envp[] = {
+      "PATH=/bin:/usr/bin",
+      NULL
+  };
 
   while (true) {
     printf("cmd> ");
@@ -40,11 +44,9 @@ int main() {
 
     if (pid > 0) {
       wait(NULL);
-      continue;
     }
 
     if (pid == 0) {
-
       // get argv
       int fd_in = NO_CHANGES_CODE, fd_out = NO_CHANGES_CODE;
       char *argv[1024];
@@ -81,7 +83,6 @@ int main() {
 
         argv[i] = new_string(token);
       }
-      char *envp[] = {NULL};
 
       // change stdin
       if (fd_in != NO_CHANGES_CODE) {
