@@ -119,7 +119,7 @@ int main() {
       }
 
       if (execve(argv[0], argv, envp) == ERROR_CODE) {
-        fprintf(stderr, "Error while executing command\n");
+        fprintf(stderr, "Command not found\n");
       }
 
       // comeback to default stdin
