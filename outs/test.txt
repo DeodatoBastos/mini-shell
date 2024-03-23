@@ -1,0 +1,10 @@
+path: /bin/ls
+LICENSE
+README.md
+examples.c
+ins
+makefile
+msh
+msh.c
+outs
+scripts
