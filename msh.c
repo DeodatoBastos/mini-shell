@@ -24,11 +24,13 @@ char *new_string(char *str) {
 
 int main() {
   int copy_in = STDIN_FILENO, copy_out = STDOUT_FILENO;
-  char *envp[] = {
-      "PATH=/bin:/usr/bin:./",
-      NULL
-  };
-  char path[] = "/bin/:/usr/bin/:./";
+  char env_name[4] = "PATH";
+  char *path = getenv(env_name);
+  if (!path) strcpy(path, "");
+
+  char env[strlen(path) + strlen(env_name) + 1];
+  strcpy(env, path);
+  char *envp[] = {env, NULL};
   printf("Welcome to the miniature-shell.\n\n");
 
   while (true) {
@@ -122,14 +124,19 @@ int main() {
         }
       }
 
-
       // execute the program
-      char *pre;
-      for (pre = strtok(path, ":"); pre != NULL; pre = strtok(NULL, ":")) {
+      if (strchr(cmd, '/')) {
+        if (execve(cmd, argv, envp) == ERROR_CODE) {
+          fprintf(stderr, "Command not found\n");
+        }
+      } else {
+        char *pre;
+        for (pre = strtok(path, ":"); pre != NULL; pre = strtok(NULL, ":")) {
           // printf("cmd: %s\n", cmd);
-          // printf("pre: %s\n", pre);
-          char fullpath[strlen(pre) + strlen(cmd) + 1];
+          printf("pre: %s\n", pre);
+          char fullpath[strlen(pre) + strlen(cmd) + 2];
           strcpy(fullpath, pre);
+          strcat(fullpath, "/");
 
           // strcpy(argv[0], strcat(fullpath, cmd));
           argv[0] = new_string(strcat(fullpath, cmd));
@@ -137,16 +144,14 @@ int main() {
           // printf("cmd after strcat: %s\n", cmd);
 
           if (execve(fullpath, argv, envp) != ERROR_CODE) {
-              printf("Program successfully executed\n");
-              break;
+            printf("Program successfully executed\n");
+            break;
           }
-      }
+        }
 
-      if (pre == NULL) {
-          argv[0] = cmd;
-          if (execve(cmd, argv, envp) == ERROR_CODE) {
-              fprintf(stderr, "Command not found\n");
-          }
+        if (pre == NULL) {
+          fprintf(stderr, "Command not found with path\n");
+        }
       }
 
       // comeback to default stdin
