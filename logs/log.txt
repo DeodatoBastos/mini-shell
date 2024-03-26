@@ -1,0 +1,7 @@
+
+This frame has 4 object(s):
+    [48, 64) 'envp' (line 33)
+    [80, 8272) 'argv' (line 56)
+    [8528, 8532) 'env_name' (line 27) <== Memory access at offset 8532 overflows this variable
+    [8544, 9568) 'buffer' (line 38)
+

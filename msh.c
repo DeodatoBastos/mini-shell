@@ -24,12 +24,14 @@ char *new_string(char *str) {
 
 int main() {
   int copy_in = STDIN_FILENO, copy_out = STDOUT_FILENO;
-  char env_name[4] = "PATH";
+  char env_name[5] = "PATH";
   char *path = getenv(env_name);
-  if (!path) strcpy(path, "");
+  if (!path) printf("PATH not found!\n");
 
-  char env[strlen(path) + strlen(env_name) + 1];
-  strcpy(env, path);
+  char env[strlen(env_name) + 1 + strlen(path) + 1];
+  strcpy(env, env_name);
+  strcat(env, "=");
+  strcat(env, path);
   char *envp[] = {env, NULL};
   printf("Welcome to the miniature-shell.\n\n");
 
@@ -133,7 +135,7 @@ int main() {
         char *pre;
         for (pre = strtok(path, ":"); pre != NULL; pre = strtok(NULL, ":")) {
           // printf("cmd: %s\n", cmd);
-          printf("pre: %s\n", pre);
+          // printf("pre: %s\n", pre);
           char fullpath[strlen(pre) + strlen(cmd) + 2];
           strcpy(fullpath, pre);
           strcat(fullpath, "/");
