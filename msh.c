@@ -23,21 +23,15 @@ char *new_string(char *str) {
 }
 
 int main() {
-  int copy_in = STDIN_FILENO, copy_out = STDOUT_FILENO;
   char env_name[5] = "PATH";
   char *path = getenv(env_name);
   if (!path) printf("PATH not found!\n");
 
-  // char env[strlen(env_name) + 1 + strlen(path) + 1];
-  // strcpy(env, env_name);
-  // strcat(env, "=");
-  // strcat(env, path);
-  // char *envp[] = {env, NULL};
   char *envp[] = {NULL};
-  printf("Welcome to the miniature-shell.\n\n");
+  printf("Welcome to the miniature-shell.\n");
 
   while (true) {
-    printf("cmd> ");
+    printf("\ncmd> ");
     char buffer[1024] = {0};
     scanf("%[^\n]", buffer);
     char *token = strtok(buffer, " ");
@@ -54,13 +48,15 @@ int main() {
     }
 
     if (pid == 0) {
-      // get argv
+      int copy_in = STDIN_FILENO, copy_out = STDOUT_FILENO;
       int fd_in = NO_CHANGES_CODE, fd_out = NO_CHANGES_CODE;
+
       char *argv[1024];
       argv[0] = new_string(token);
       char cmd[strlen(token) + 1];
       strcpy(cmd, token);
 
+      // get argv
       for (int i = 1; token != NULL; i++) {
         token = strtok(NULL, " ");
 
@@ -130,7 +126,7 @@ int main() {
       // execute the program
       if (strchr(cmd, '/')) {
         if (execve(cmd, argv, envp) == ERROR_CODE) {
-          fprintf(stderr, "Command not found\n");
+          fprintf(stderr, "msh: command not found: %s\n", cmd);
         }
       } else {
         char *pre;
@@ -154,7 +150,7 @@ int main() {
         }
 
         if (pre == NULL) {
-          fprintf(stderr, "Command `%s` not found with path\n", cmd);
+          fprintf(stderr, "msh: command not found: %s\n", cmd);
         }
       }
 
