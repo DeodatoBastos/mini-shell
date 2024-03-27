@@ -28,11 +28,12 @@ int main() {
   char *path = getenv(env_name);
   if (!path) printf("PATH not found!\n");
 
-  char env[strlen(env_name) + 1 + strlen(path) + 1];
-  strcpy(env, env_name);
-  strcat(env, "=");
-  strcat(env, path);
-  char *envp[] = {env, NULL};
+  // char env[strlen(env_name) + 1 + strlen(path) + 1];
+  // strcpy(env, env_name);
+  // strcat(env, "=");
+  // strcat(env, path);
+  // char *envp[] = {env, NULL};
+  char *envp[] = {NULL};
   printf("Welcome to the miniature-shell.\n\n");
 
   while (true) {
@@ -133,7 +134,9 @@ int main() {
         }
       } else {
         char *pre;
-        for (pre = strtok(path, ":"); pre != NULL; pre = strtok(NULL, ":")) {
+        char local_path[strlen(path) + 1];
+        strcpy(local_path, path);
+        for (pre = strtok(local_path, ":"); pre != NULL; pre = strtok(NULL, ":")) {
           // printf("cmd: %s\n", cmd);
           // printf("pre: %s\n", pre);
           char fullpath[strlen(pre) + strlen(cmd) + 2];
@@ -146,13 +149,12 @@ int main() {
           // printf("cmd after strcat: %s\n", cmd);
 
           if (execve(fullpath, argv, envp) != ERROR_CODE) {
-            printf("Program successfully executed\n");
             break;
           }
         }
 
         if (pre == NULL) {
-          fprintf(stderr, "Command not found with path\n");
+          fprintf(stderr, "Command `%s` not found with path\n", cmd);
         }
       }
 
