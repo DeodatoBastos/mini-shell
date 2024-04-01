@@ -2,7 +2,7 @@
 CC = gcc
 
 # flags
-CFLAGS =  -pedantic -Wall -Wextra -Werror -fsanitize=address -fsanitize=leak
+CFLAGS =  -pedantic -Wall -Wextra -Werror -fsanitize=address -fsanitize=leak 
 
 # build target
 TARGET = msh
@@ -11,7 +11,7 @@ TARGET = msh
 FOLDER = bin
 
 all: $(TARGET).c
-	$(CC) $(CFLAGS) -o $(FOLDER)/$(TARGET) $(TARGET).c
+	$(CC) $(CFLAGS) -g -o $(FOLDER)/$(TARGET) $(TARGET).c
 
 run:
 	./$(FOLDER)/$(TARGET)
