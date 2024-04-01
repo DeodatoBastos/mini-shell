@@ -1,4 +1,5 @@
 #include <fcntl.h>
+#include <locale.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,9 +15,10 @@
 char *new_string(char *str) {
   if (str == NULL)
     return NULL;
+
   char *ret;
 
-  ret = malloc(sizeof(char) * 255);
+  ret = malloc(sizeof(char) * (strlen(str) + 1));
   strcpy(ret, str);
 
   return (ret);
@@ -25,15 +27,16 @@ char *new_string(char *str) {
 int main() {
   char env_name[5] = "PATH";
   char *path = getenv(env_name);
-  if (!path) printf("PATH not found!\n");
+  if (!path)
+    printf("PATH not found!\n");
 
   char *envp[] = {NULL};
   printf("Welcome to the miniature-shell.\n");
 
   while (true) {
     printf("\ncmd> ");
-    char buffer[1024] = {0};
-    scanf("%[^\n]", buffer);
+    char buffer[1024];
+    scanf("%1023[^\n]", buffer);
     char *token = strtok(buffer, " ");
 
     pid_t pid = fork();
@@ -52,9 +55,11 @@ int main() {
       int fd_in = NO_CHANGES_CODE, fd_out = NO_CHANGES_CODE;
 
       char *argv[1024];
+      int argc = 1;
       argv[0] = new_string(token);
-      char cmd[strlen(token) + 1];
-      strcpy(cmd, token);
+      char *cmd = new_string(token);
+      // char cmd[strlen(token) + 1];
+      // strcpy(cmd, token);
 
       // get argv
       for (int i = 1; token != NULL; i++) {
@@ -87,6 +92,7 @@ int main() {
         }
 
         argv[i] = new_string(token);
+        argc++;
       }
 
       // change stdin
@@ -130,9 +136,11 @@ int main() {
         }
       } else {
         char *pre;
-        char local_path[strlen(path) + 1];
-        strcpy(local_path, path);
-        for (pre = strtok(local_path, ":"); pre != NULL; pre = strtok(NULL, ":")) {
+        char *local_path = new_string(path);
+        // char local_path[strlen(path) + 1];
+        // strcpy(local_path, path);
+        for (pre = strtok(local_path, ":"); pre != NULL;
+             pre = strtok(NULL, ":")) {
           // printf("cmd: %s\n", cmd);
           // printf("pre: %s\n", pre);
           char fullpath[strlen(pre) + strlen(cmd) + 2];
@@ -148,6 +156,8 @@ int main() {
             break;
           }
         }
+
+        free(local_path);
 
         if (pre == NULL) {
           fprintf(stderr, "msh: command not found: %s\n", cmd);
@@ -175,6 +185,10 @@ int main() {
           fprintf(stderr, "Error while closing copy of default stdout\n");
         }
       }
+
+      free(cmd);
+      for (int i = 0; i < argc; i++)
+        free(argv[i]);
     }
 
     getchar();
