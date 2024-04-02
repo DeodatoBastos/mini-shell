@@ -11,39 +11,40 @@
 
 #define NO_CHANGES_CODE -2
 #define ERROR_CODE -1
-
-char *new_string(char *str) {
-  if (str == NULL)
-    return NULL;
-
-  char *ret;
-
-  ret = malloc(sizeof(char) * (strlen(str) + 1));
-  strcpy(ret, str);
-
-  return (ret);
-}
+#define DELIMITER " "
+#define PATH_DELIMITER ":"
+#define IN_CMD "<"
+#define OUT_CMD ">"
 
 int main() {
   char env_name[5] = "PATH";
   char *path = getenv(env_name);
-  if (!path)
-    printf("PATH not found!\n");
+  if (!path) {
+    perror("PATH not found\n");
+    exit(EXIT_FAILURE);
+  }
 
   char *envp[] = {NULL};
-  printf("Welcome to the miniature-shell.\n");
+  char welcome_message[] = "Welcome to the miniature-shell.\n";
+  char cmd_message[] = "\ncmd> ";
+  write(STDOUT_FILENO, welcome_message, sizeof(welcome_message));
 
   while (true) {
-    printf("\ncmd> ");
+    write(STDOUT_FILENO, cmd_message, sizeof(cmd_message));
     char buffer[1024];
-    scanf("%1023[^\n]", buffer);
-    char *token = strtok(buffer, " ");
+    ssize_t count = read(STDIN_FILENO, buffer, 1023);
 
+    if (count == -1) {
+      char err_buffer[] = "An error occurred in the read.\n";
+      write(STDERR_FILENO, err_buffer, sizeof(err_buffer));
+    }
+
+    char *token = strtok(buffer, DELIMITER);
     pid_t pid = fork();
 
     if (pid == ERROR_CODE) {
-      fprintf(stderr, "Error while forking process\n");
-      continue;
+      perror("Fork\n");
+      exit(EXIT_FAILURE);
     }
 
     if (pid > 0) {
@@ -56,42 +57,38 @@ int main() {
 
       char *argv[1024];
       int argc = 1;
-      argv[0] = new_string(token);
-      char *cmd = new_string(token);
-      // char cmd[strlen(token) + 1];
-      // strcpy(cmd, token);
+      argv[0] = strdup(token);
+      char *cmd = strdup(token);
 
       // get argv
       for (int i = 1; token != NULL; i++) {
-        token = strtok(NULL, " ");
+        token = strtok(NULL, DELIMITER);
 
         // get new stdin
-        if (token != NULL && !strcmp(token, "<")) {
-          token = strtok(NULL, " ");
+        if (token != NULL && !strcmp(token, IN_CMD)) {
+          token = strtok(NULL, DELIMITER);
           fd_in = open(token, O_RDONLY);
           if (fd_in == ERROR_CODE) {
-            fprintf(stderr, "Error while reading file\n. Make sure that this "
-                            "file exists.\n");
-            continue;
+            perror("Open in file\n");
+            exit(EXIT_FAILURE);
           }
 
-          token = strtok(NULL, " ");
+          token = strtok(NULL, DELIMITER);
         }
 
         // get new stdout
-        if (token != NULL && !strcmp(token, ">")) {
-          token = strtok(NULL, " ");
+        if (token != NULL && !strcmp(token, OUT_CMD)) {
+          token = strtok(NULL, DELIMITER);
           fd_out = open(token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
           if (fd_out == ERROR_CODE) {
-            fprintf(stderr,
-                    "Error while creating the file or writing into file\n");
-            continue;
+            perror("Open out file\n");
+            exit(EXIT_FAILURE);
           }
 
-          token = strtok(NULL, " ");
+          token = strtok(NULL, DELIMITER);
         }
 
-        argv[i] = new_string(token);
+        argv[i] = strdup(token);
         argc++;
       }
 
@@ -99,16 +96,19 @@ int main() {
       if (fd_in != NO_CHANGES_CODE) {
         copy_in = dup(STDIN_FILENO);
         if (copy_in == ERROR_CODE) {
-          fprintf(stderr, "Error while copying default stdin\n");
+          perror("dup stdin\n");
+          exit(EXIT_FAILURE);
         }
 
         // change stdin to input file
         if (dup2(fd_in, STDIN_FILENO) == ERROR_CODE) {
-          fprintf(stderr, "Error while changing stdin\n");
+          perror("dup2 stdin\n");
+          exit(EXIT_FAILURE);
         }
 
         if (close(fd_in) == ERROR_CODE) {
-          fprintf(stderr, "Error while closing stdin file\n");
+          perror("close in file\n");
+          exit(EXIT_FAILURE);
         }
       }
 
@@ -116,73 +116,73 @@ int main() {
       if (fd_out != NO_CHANGES_CODE) {
         copy_out = dup(STDOUT_FILENO);
         if (copy_out == ERROR_CODE) {
-          fprintf(stderr, "Error while copying default stdout\n");
+          perror("dup stdout\n");
+          exit(EXIT_FAILURE);
         }
 
         // change stdout to output file
         if (dup2(fd_out, STDOUT_FILENO) == ERROR_CODE) {
-          fprintf(stderr, "Error while changing stdout\n");
+          perror("dup2 stdout\n");
+          exit(EXIT_FAILURE);
         }
 
         if (close(fd_out) == ERROR_CODE) {
-          fprintf(stderr, "Error while closing stdout file\n");
+          perror("close out file\n");
+          exit(EXIT_FAILURE);
         }
       }
 
       // execute the program
       if (strchr(cmd, '/')) {
-        if (execve(cmd, argv, envp) == ERROR_CODE) {
-          fprintf(stderr, "msh: command not found: %s\n", cmd);
-        }
+        execve(cmd, argv, envp);
+        fprintf(stderr, "msh: command not found: %s\n", cmd);
+        exit(EXIT_FAILURE);
       } else {
         char *pre;
-        char *local_path = new_string(path);
-        // char local_path[strlen(path) + 1];
-        // strcpy(local_path, path);
-        for (pre = strtok(local_path, ":"); pre != NULL;
-             pre = strtok(NULL, ":")) {
-          // printf("cmd: %s\n", cmd);
-          // printf("pre: %s\n", pre);
+        char *local_path = strdup(path);
+
+        for (pre = strtok(local_path, PATH_DELIMITER); pre != NULL;
+             pre = strtok(NULL, PATH_DELIMITER)) {
           char fullpath[strlen(pre) + strlen(cmd) + 2];
           strcpy(fullpath, pre);
           strcat(fullpath, "/");
-
-          // strcpy(argv[0], strcat(fullpath, cmd));
-          argv[0] = new_string(strcat(fullpath, cmd));
-          // printf("path: %s\n", argv[0]);
-          // printf("cmd after strcat: %s\n", cmd);
+          argv[0] = strdup(strcat(fullpath, cmd));
 
           if (execve(fullpath, argv, envp) != ERROR_CODE) {
             break;
           }
         }
-
         free(local_path);
 
         if (pre == NULL) {
           fprintf(stderr, "msh: command not found: %s\n", cmd);
+          exit(EXIT_FAILURE);
         }
       }
 
       // comeback to default stdin
       if (fd_in != NO_CHANGES_CODE) {
         if (dup2(copy_in, STDIN_FILENO) == ERROR_CODE) {
-          fprintf(stderr, "Error while changing stdin\n");
+          perror("dup2 stdin back\n");
+          exit(EXIT_FAILURE);
         }
 
         if (close(copy_in) == ERROR_CODE) {
-          fprintf(stderr, "Error while closing copy of default stdin\n");
+          perror("close copy stdin\n");
+          exit(EXIT_FAILURE);
         }
       }
 
       // comeback to default stdout
       if (fd_out != NO_CHANGES_CODE) {
         if (dup2(copy_out, STDOUT_FILENO) == ERROR_CODE) {
-          fprintf(stderr, "Error while changing stdout\n");
+          perror("dup2 stdout back\n");
+          exit(EXIT_FAILURE);
         }
 
         if (close(copy_out) == ERROR_CODE) {
-          fprintf(stderr, "Error while closing copy of default stdout\n");
+          perror("close copy stdout\n");
+          exit(EXIT_FAILURE);
         }
       }
 
