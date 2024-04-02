@@ -88,8 +88,10 @@ int main() {
           token = strtok(NULL, DELIMITER);
         }
 
-        argv[i] = strdup(token);
-        argc++;
+        if (token != NULL) {
+          argv[i] = strdup(token);
+          argc++;
+        }
       }
 
       // change stdin
@@ -135,18 +137,20 @@ int main() {
       // execute the program
       if (strchr(cmd, '/')) {
         execve(cmd, argv, envp);
-        fprintf(stderr, "msh: command not found: %s\n", cmd);
+        fprintf(stderr, "msh: command not found: %s without path\n", cmd);
         exit(EXIT_FAILURE);
-      } else {
+      } else if (path != NULL) {
         char *pre;
         char *local_path = strdup(path);
 
         for (pre = strtok(local_path, PATH_DELIMITER); pre != NULL;
              pre = strtok(NULL, PATH_DELIMITER)) {
-          char fullpath[strlen(pre) + strlen(cmd) + 2];
+          int size = strlen(pre) + strlen(cmd) + 2;
+          char fullpath[size];
           strcpy(fullpath, pre);
           strcat(fullpath, "/");
-          argv[0] = strdup(strcat(fullpath, cmd));
+          argv[0] = realloc(argv[0], sizeof(char *) * (size));
+          strcpy(argv[0], strcat(fullpath, cmd));
 
           if (execve(fullpath, argv, envp) != ERROR_CODE) {
             break;
@@ -191,7 +195,7 @@ int main() {
         free(argv[i]);
     }
 
-    getchar();
+    // getchar();
   }
 
   return 0;
