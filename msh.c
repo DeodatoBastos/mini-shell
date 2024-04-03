@@ -11,50 +11,37 @@
 #define NO_CHANGES_CODE -2
 #define ERROR_CODE -1
 
-char *new_string(char *str) {
-  if (str == NULL)
-    return NULL;
-  char *ret;
-
-  ret = malloc(sizeof(char) * 255);
-  strcpy(ret, str);
-
-  return (ret);
-}
-
 int main() {
   int copy_in = STDIN_FILENO, copy_out = STDOUT_FILENO;
-  char *envp[] = {
-      "PATH=/bin:/usr/bin:./",
-      NULL
-  };
+  char *envp[] = {"PATH=/bin:/usr/bin:./", NULL};
   char path[] = "/bin/:/usr/bin/:./";
-  printf("Welcome to the miniature-shell.\n\n");
+  printf("Welcome to the miniature-shell.\n");
 
   while (true) {
-    printf("cmd> ");
+    printf("\ncmd> ");
     char buffer[1024] = {0};
-    scanf("%[^\n]", buffer);
+    if(scanf("%[^\n]", buffer) == EOF) break;
+
     char *token = strtok(buffer, " ");
 
-    pid_t pid = fork();
+    // pid_t pid = fork();
 
-    if (pid == ERROR_CODE) {
-      fprintf(stderr, "Error while forking process\n");
-      continue;
-    }
+    // if (pid == ERROR_CODE) {
+    //   fprintf(stderr, "Error while forking process\n");
+    //   continue;
+    // }
 
-    if (pid > 0) {
-      wait(NULL);
-    }
+    // if (pid > 0) {
+    //   wait(NULL);
+    // }
 
-    if (pid == 0) {
+    // if (pid == 0 && token != NULL) {
+    if (!fork() && token != NULL) {
       // get argv
       int fd_in = NO_CHANGES_CODE, fd_out = NO_CHANGES_CODE;
       char *argv[1024];
-      argv[0] = new_string(token);
-      char cmd[strlen(token) + 1];
-      strcpy(cmd, token);
+      argv[0] = strdup(token);
+      char *cmd = strdup(token);
 
       for (int i = 1; token != NULL; i++) {
         token = strtok(NULL, " ");
@@ -64,8 +51,7 @@ int main() {
           token = strtok(NULL, " ");
           fd_in = open(token, O_RDONLY);
           if (fd_in == ERROR_CODE) {
-            fprintf(stderr, "Error while reading file\n. Make sure that this "
-                            "file exists.\n");
+            fprintf(stderr, "Error while open file: %s.\n", token);
             continue;
           }
 
@@ -77,15 +63,17 @@ int main() {
           token = strtok(NULL, " ");
           fd_out = open(token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
           if (fd_out == ERROR_CODE) {
-            fprintf(stderr,
-                    "Error while creating the file or writing into file\n");
+            fprintf(stderr, "Error while open file: %s\n", token);
             continue;
           }
 
           token = strtok(NULL, " ");
         }
 
-        argv[i] = new_string(token);
+        if (token == NULL)
+          argv[i] = NULL;
+        else
+          argv[i] = strdup(token);
       }
 
       // change stdin
@@ -122,31 +110,21 @@ int main() {
         }
       }
 
-
       // execute the program
       char *pre;
       for (pre = strtok(path, ":"); pre != NULL; pre = strtok(NULL, ":")) {
-          // printf("cmd: %s\n", cmd);
-          // printf("pre: %s\n", pre);
-          char fullpath[strlen(pre) + strlen(cmd) + 1];
-          strcpy(fullpath, pre);
+        char fullpath[strlen(pre) + strlen(cmd) + 1];
+        strcpy(fullpath, pre);
+        argv[0] = strdup(strcat(fullpath, cmd));
 
-          // strcpy(argv[0], strcat(fullpath, cmd));
-          argv[0] = new_string(strcat(fullpath, cmd));
-          // printf("path: %s\n", argv[0]);
-          // printf("cmd after strcat: %s\n", cmd);
-
-          if (execve(fullpath, argv, envp) != ERROR_CODE) {
-              printf("Program successfully executed\n");
-              break;
-          }
+        execve(fullpath, argv, envp);
       }
 
       if (pre == NULL) {
-          argv[0] = cmd;
-          if (execve(cmd, argv, envp) == ERROR_CODE) {
-              fprintf(stderr, "Command not found\n");
-          }
+        argv[0] = cmd;
+        if (execve(cmd, argv, envp) == ERROR_CODE) {
+          fprintf(stderr, "msh: command not found: %s\n", cmd);
+        }
       }
 
       // comeback to default stdin
@@ -172,6 +150,7 @@ int main() {
       }
     }
 
+    wait(NULL);
     getchar();
   }
 
