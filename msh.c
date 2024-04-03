@@ -15,9 +15,15 @@
 #define IN_CMD "<"
 #define OUT_CMD ">"
 #define PIPE_CMD "|"
+#define MAX_LINE_LENGTH 1024
+#define MAX_ARGS 64
+
+bool is_in_cmd(const char *str) { return !strcmp(str, IN_CMD); }
+
+bool is_out_cmd(const char *str) { return !strcmp(str, OUT_CMD); }
 
 // verify if str is as pipe, i.e., "|"
-bool is_pipe(const char *str) { return !strcmp(str, PIPE_CMD); }
+bool is_pipe_cmd(const char *str) { return !strcmp(str, PIPE_CMD); }
 
 void execute(char **argv, char *cmd, char *path, char *const *envp) {
   char *pre;
@@ -43,29 +49,40 @@ int main() {
   char *envp[] = {"PATH=/bin:/usr/bin:./", NULL};
   char path[] = "/bin/:/usr/bin/:./";
   printf("Welcome to the miniature-shell.\n");
+  char buffer[MAX_LINE_LENGTH] = {0};
+  char *log_path = "logs/log.txt";
+  FILE *log_file = fopen(log_path, "a");
 
   while (true) {
     printf("\ncmd> ");
-    char buffer[1024] = {0};
-    if (scanf("%[^\n]", buffer) == EOF)
+    fflush(stdout); // Flush the output buffer to ensure prompt is printed
+
+    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
       break;
+    }
+
+    // Remove trailing newline character if present
+    buffer[strcspn(buffer, "\n")] = '\0';
+
+    // if (scanf("%[^\n]", buffer) == EOF)
+    //   break;
 
     char *token = strtok(buffer, DELIMITER);
     // pid_t pid = fork();
 
     if (token != NULL) {
       int fd_in = NO_CHANGES_CODE, fd_out = NO_CHANGES_CODE;
-      char *first_argv[1024];
+      char *first_argv[MAX_ARGS];
       int first_argc = 1;
       first_argv[0] = strdup(token);
       char *first_cmd = strdup(token);
 
       // get first argv
-      for (int i = 1; token != NULL; i++) {
+      for (int i = 1; token != NULL && !is_pipe_cmd(token); i++) {
         token = strtok(NULL, DELIMITER);
 
         // get new stdin
-        if (token != NULL && !is_pipe(token) && !strcmp(token, IN_CMD)) {
+        if (token != NULL && !is_pipe_cmd(token) && is_in_cmd(token)) {
           token = strtok(NULL, DELIMITER);
           fd_in = open(token, O_RDONLY);
           if (fd_in == ERROR_CODE) {
@@ -77,7 +94,7 @@ int main() {
         }
 
         // get new stdout
-        if (token != NULL && !is_pipe(token) && !strcmp(token, OUT_CMD)) {
+        if (token != NULL && !is_pipe_cmd(token) && is_out_cmd(token)) {
           token = strtok(NULL, DELIMITER);
           fd_out = open(token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
           if (fd_out == ERROR_CODE) {
@@ -88,7 +105,7 @@ int main() {
           token = strtok(NULL, DELIMITER);
         }
 
-        if (token == NULL || !is_pipe(token))
+        if (token == NULL || is_pipe_cmd(token))
           first_argv[i] = NULL;
         else {
           first_argc++;
@@ -96,17 +113,22 @@ int main() {
         }
       }
 
-      char *second_argv[1024];
+      char *second_argv[MAX_ARGS];
       int second_argc = 0;
       char *second_cmd;
 
       // get second argv
-      if (token != NULL && !!is_pipe(token)) {
-        for (int i = 0; token != NULL && !is_pipe(token); i++) {
+      if (token != NULL && is_pipe_cmd(token)) {
+        token = strtok(NULL, DELIMITER);
+        second_argv[0] = strdup(token);
+        second_cmd = strdup(token);
+        second_argc++;
+
+        for (int i = 1; token != NULL && !is_pipe_cmd(token); i++) {
           token = strtok(NULL, DELIMITER);
 
           // get new stdout
-          if (token != NULL && !is_pipe(token) && !strcmp(token, OUT_CMD)) {
+          if (token != NULL && !is_pipe_cmd(token) && is_out_cmd(token)) {
             token = strtok(NULL, DELIMITER);
             fd_out = open(token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
             if (fd_out == ERROR_CODE) {
@@ -117,28 +139,31 @@ int main() {
             token = strtok(NULL, DELIMITER);
           }
 
-          if (token == NULL || !is_pipe(token))
+          if (token == NULL || is_pipe_cmd(token))
             second_argv[i] = NULL;
           else {
             second_argc++;
             second_argv[i] = strdup(token);
           }
         }
-
-        second_cmd = strdup(second_argv[0]);
       }
 
-      char *third_argv[1024];
+      char *third_argv[MAX_ARGS];
       int third_argc = 0;
       char *third_cmd;
 
-      // get thid argv
-      if (token != NULL && is_pipe(token)) {
-        for (int i = 0; token != NULL && !is_pipe(token); i++) {
+      // get third argv
+      if (token != NULL && is_pipe_cmd(token)) {
+        token = strtok(NULL, DELIMITER);
+        third_argv[0] = strdup(token);
+        third_cmd = strdup(token);
+        third_argc++;
+
+        for (int i = 1; token != NULL && !is_pipe_cmd(token); i++) {
           token = strtok(NULL, DELIMITER);
 
           // get new stdout
-          if (token != NULL && !is_pipe(token) && !strcmp(token, OUT_CMD)) {
+          if (token != NULL && !is_pipe_cmd(token) && is_out_cmd(token)) {
             token = strtok(NULL, DELIMITER);
             fd_out = open(token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
             if (fd_out == ERROR_CODE) {
@@ -206,22 +231,13 @@ int main() {
         else
           close(pipefd1[1]);
 
-        char *pre;
-        for (pre = strtok(path, PATH_DELIMITER); pre != NULL;
-             pre = strtok(NULL, ":")) {
-          char fullpath[strlen(pre) + strlen(first_cmd) + 1];
-          strcpy(fullpath, pre);
-          first_argv[0] = strdup(strcat(fullpath, first_cmd));
-
-          execve(fullpath, first_argv, envp);
-        }
-
-        if (pre == NULL) {
-          first_argv[0] = strdup(first_cmd);
-          if (execve(first_cmd, first_argv, envp) == ERROR_CODE) {
-            fprintf(stderr, "msh: command not found: %s\n", first_cmd);
-          }
-        }
+        time_t t = time(NULL);
+        struct tm tm = *localtime(&t);
+        fprintf(log_file, "now: %d-%02d-%02d %02d:%02d:%02d -- ",
+                tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour,
+                tm.tm_min, tm.tm_sec);
+        fprintf(log_file, "first command\n");
+        execute(first_argv, first_cmd, path, envp);
       }
 
       int pipefd2[2];
@@ -237,22 +253,13 @@ int main() {
         else
           close(pipefd2[1]);
 
-        char *pre;
-        for (pre = strtok(path, PATH_DELIMITER); pre != NULL;
-             pre = strtok(NULL, ":")) {
-          char fullpath[strlen(pre) + strlen(second_cmd) + 1];
-          strcpy(fullpath, pre);
-          second_argv[0] = strdup(strcat(fullpath, second_cmd));
-
-          execve(fullpath, second_argv, envp);
-        }
-
-        if (pre == NULL) {
-          second_argv[0] = strdup(second_cmd);
-          if (execve(second_cmd, second_argv, envp) == ERROR_CODE) {
-            fprintf(stderr, "msh: command not found: %s\n", second_cmd);
-          }
-        }
+        time_t t = time(NULL);
+        struct tm tm = *localtime(&t);
+        fprintf(log_file, "now: %d-%02d-%02d %02d:%02d:%02d -- ",
+                tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour,
+                tm.tm_min, tm.tm_sec);
+        fprintf(log_file, "second command\n");
+        execute(second_argv, second_cmd, path, envp);
       }
 
       close(pipefd1[0]);
@@ -264,28 +271,19 @@ int main() {
 
         dup2(pipefd2[0], STDIN_FILENO);
 
-        char *pre;
-        for (pre = strtok(path, PATH_DELIMITER); pre != NULL;
-             pre = strtok(NULL, ":")) {
-          char fullpath[strlen(pre) + strlen(third_cmd) + 1];
-          strcpy(fullpath, pre);
-          third_argv[0] = strdup(strcat(fullpath, third_cmd));
-
-          execve(fullpath, third_argv, envp);
-        }
-
-        if (pre == NULL) {
-          third_argv[0] = strdup(third_cmd);
-          if (execve(third_cmd, third_argv, envp) == ERROR_CODE) {
-            fprintf(stderr, "msh: command not found: %s\n", third_cmd);
-          }
-        }
+        time_t t = time(NULL);
+        struct tm tm = *localtime(&t);
+        fprintf(log_file, "now: %d-%02d-%02d %02d:%02d:%02d -- ",
+                tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour,
+                tm.tm_min, tm.tm_sec);
+        fprintf(log_file, "third command\n");
+        execute(third_argv, third_cmd, path, envp);
       }
 
       close(pipefd2[0]);
       close(pipefd2[1]);
 
-      // wait(NULL);
+      wait(NULL);
 
       // comeback to default stdin
       if (fd_in != NO_CHANGES_CODE) {
@@ -309,10 +307,9 @@ int main() {
         }
       }
     }
-
-    wait(NULL);
-    getchar();
   }
+
+  fclose(log_file);
 
   return 0;
 }
