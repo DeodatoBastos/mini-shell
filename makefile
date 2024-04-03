@@ -2,16 +2,19 @@
 CC = gcc
 
 # flags
-CFLAGS = -Wall
+CFLAGS =  -pedantic -Wall -Wextra -Werror -fsanitize=address -fsanitize=leak 
 
 # build target
 TARGET = msh
 
+# bin folder
+FOLDER = bin
+
 all: $(TARGET).c
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
+	$(CC) $(CFLAGS) -g -o $(FOLDER)/$(TARGET) $(TARGET).c
 
 run:
-	./$(TARGET)
+	./$(FOLDER)/$(TARGET)
 
 clean: 
-	rm $(TARGET)
+	rm $(FOLDER)/$(TARGET)
