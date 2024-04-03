@@ -3,14 +3,14 @@ This is a project for the university to create a simple version of a shell.
 
 ## Running
 - To compile the code type:
-`{bash}make`
+`make`
 
 - To run it:
-`{bash}make run`
+`make run`
 
 - A message will show:
 ```{bash}
-
+Welcome to the miniature-shell
 ```
 
 ## Examples of commands:
