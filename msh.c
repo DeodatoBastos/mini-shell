@@ -18,13 +18,38 @@
 #define MAX_LINE_LENGTH 1024
 #define MAX_ARGS 64
 
+/**
+ * @brief verify if a string is a in command: '<'
+ *
+ * @param str string to verify
+ * @return true if is '<' else false
+ */
 bool is_in_cmd(const char *str) { return !strcmp(str, IN_CMD); }
 
+/**
+ * @brief verify if a string is a out command: '>'
+ *
+ * @param str string to verify
+ * @return true if is '>' else false
+ */
 bool is_out_cmd(const char *str) { return !strcmp(str, OUT_CMD); }
 
-// verify if str is as pipe, i.e., "|"
+/**
+ * @brief verify if a string is a pipe: '>'
+ *
+ * @param str string to verify
+ * @return true if is '|' else false
+ */
 bool is_pipe_cmd(const char *str) { return !strcmp(str, PIPE_CMD); }
 
+/**
+ * @brief execute a command
+ *
+ * @param argv all the orguments of the command
+ * @param cmd the command
+ * @param path the path envirioment variable
+ * @param envp a list of envirioment variable
+ */
 void execute(char **argv, char *cmd, char *path, char *const *envp) {
     char *pre;
     for (pre = strtok(path, PATH_DELIMITER); pre != NULL; pre = strtok(NULL, PATH_DELIMITER)) {
@@ -34,7 +59,7 @@ void execute(char **argv, char *cmd, char *path, char *const *envp) {
 
         execve(fullpath, argv, envp);
     }
-    
+
     if (pre == NULL) {
         argv[0] = strdup(cmd);
         if (execve(cmd, argv, envp) == ERROR_CODE) {
@@ -43,6 +68,13 @@ void execute(char **argv, char *cmd, char *path, char *const *envp) {
     }
 }
 
+/**
+ * @brief loggin info into a file
+ *
+ * @param file pointer to file
+ * @param severity 'i' for info, 'w' for warning and 'e' for error
+ * @param info the information to be loged
+ */
 void file_logging(FILE *file, const char severity, const char *info) {
     if (info == NULL)
         exit(EXIT_FAILURE);
@@ -84,7 +116,7 @@ int main() {
 
     while (true) {
         printf("\ncmd> ");
-        fflush(stdout); // Flush the output buffer to ensure prompt is printed
+        // fflush(stdout); // Flush the output buffer to ensure prompt is printed
 
         if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
             break;
@@ -97,8 +129,6 @@ int main() {
         //   break;
 
         char *token = strtok(buffer, DELIMITER);
-        // pid_t pid = fork();
-
         if (token != NULL) {
             int fd_in = NO_CHANGES_CODE, fd_out = NO_CHANGES_CODE;
             char *first_argv[MAX_ARGS];
