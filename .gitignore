@@ -54,3 +54,6 @@ dkms.conf
 msh
 
 *.zip
+
+# bin folder
+bin/
