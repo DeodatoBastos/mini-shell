@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <ctype.h>
 
 #define ERROR_CODE -1
 #define DELIMITER " "
@@ -72,3 +73,11 @@ void wait_all();
  * @return the arrys of string
  */
 char** split(char *str, char* ch, int *count);
+
+/**
+ * @brief remove whitespaces from a string
+ *
+ * @param str string to remove whitespaces
+ * @return cleaned string
+ */
+void trim(char *str);

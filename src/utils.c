@@ -87,7 +87,7 @@ void wait_all() {
         ;
 }
 
-char** split(char *str, char* ch, int *count) {
+char **split(char *str, char *ch, int *count) {
     char *str_cpy = strdup(str);
     char *token = strtok(str_cpy, ch);
 
@@ -107,4 +107,15 @@ char** split(char *str, char* ch, int *count) {
     *count = i;
 
     return commands;
+}
+
+void trim(char *str) {
+    if (str == NULL)
+        return;
+
+    while (isspace((unsigned char)str[0]))
+        memmove(str, str + 1, strlen(str));
+
+    while (isspace((unsigned char)str[strlen(str) - 1]))
+        str[strlen(str) - 1] = '\0';
 }

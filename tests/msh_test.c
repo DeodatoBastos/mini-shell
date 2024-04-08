@@ -56,12 +56,13 @@ void test_split() {
     if (commands == NULL)
         assert(false);
 
-    // for (int i = 0; i < num_cmds; i++) {
-    //     printf("cmd[%d] = %s\n", i, commands[i]);
-    // }
+    for (int i = 0; i < num_cmds; i++) {
+        trim(commands[i]);
+        printf("cmd[%d] = %s\n", i, commands[i]);
+    }
 
-    assert(strcmp(commands[0], "ls -la"));
-    assert(strcmp(commands[1], "ws -l"));
+    assert(strcmp(commands[0], "ls -la") == 0);
+    assert(strcmp(commands[1], "ws -l") == 0);
 
     for (int i = 0; i < num_cmds; i++) {
         free(commands[i]);
