@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <sys/wait.h>
 
 bool is_in_cmd(const char *str) {
     if (str == NULL)
@@ -47,7 +48,7 @@ void execute(char **argv, char *cmd, char *path, char *const *envp) {
     }
 }
 
-void file_logging(FILE *file, const char severity, const char *info) {
+void file_logging(char *file_name, const char severity, const char *info) {
     if (info == NULL)
         exit(EXIT_FAILURE);
 
@@ -69,9 +70,16 @@ void file_logging(FILE *file, const char severity, const char *info) {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
+    FILE *file = fopen(file_name, "a");
     fprintf(file, "%s: %d-%02d-%02d %02d:%02d:%02d -- ", msg, tm.tm_year + 1900, tm.tm_mon + 1,
             tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
     fprintf(file, "executing: %s\n", info);
+    fclose(file);
 
     free(msg);
 }
+
+void wait_all() {
+    while (wait(NULL) > 0);
+}
+

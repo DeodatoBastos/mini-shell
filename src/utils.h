@@ -53,4 +53,11 @@ void execute(char **argv, char *cmd, char *path, char *const *envp);
  * @param severity 'i' for info, 'w' for warning and 'e' for error
  * @param info the information to be loged
  */
-void file_logging(FILE *file, const char severity, const char *info);
+void file_logging(char *file_name, const char severity, const char *info);
+
+
+/**
+ * @brief wait for all forks
+ *
+ */
+void wait_all();

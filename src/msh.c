@@ -16,7 +16,6 @@ int main() {
     char buffer[MAX_LINE_LENGTH] = {0};
 
     char *log_path = "logs/log.txt";
-    FILE *log_file = fopen(log_path, "a");
 
     while (true) {
         printf("\ncmd> ");
@@ -194,7 +193,7 @@ int main() {
                 else
                     close(pipefd1[1]);
 
-                file_logging(log_file, 'i', first_cmd);
+                file_logging(log_path, 'i', first_cmd);
                 execute(first_argv, first_cmd, path, envp);
             }
 
@@ -211,7 +210,7 @@ int main() {
                 else
                     close(pipefd2[1]);
 
-                file_logging(log_file, 'i', second_cmd);
+                file_logging(log_path, 'i', second_cmd);
                 execute(second_argv, second_cmd, path, envp);
             }
 
@@ -224,15 +223,15 @@ int main() {
 
                 dup2(pipefd2[0], STDIN_FILENO);
 
-                file_logging(log_file, 'i', third_cmd);
+                file_logging(log_path, 'i', third_cmd);
                 execute(third_argv, third_cmd, path, envp);
             }
 
             close(pipefd2[0]);
             close(pipefd2[1]);
 
-            file_logging(log_file, 'i', "before wait");
-            wait(NULL);
+            file_logging(log_path, 'i', "before wait");
+            wait_all();
 
             // comeback to default stdin
             if (fd_in != NO_CHANGES_CODE) {
@@ -257,8 +256,5 @@ int main() {
             }
         }
     }
-
-    fclose(log_file);
-
     return 0;
 }

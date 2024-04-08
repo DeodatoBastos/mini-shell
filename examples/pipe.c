@@ -22,49 +22,64 @@
 //     return 0;
 // }
 
+void wait_all() {
+    while (wait(NULL) > 0);
+}
+
 int main(int argc, char *argv[]) {
-  int pipefd1[2];
-  pipe(pipefd1);
+    int i = 10;
+    while (i > 0) {
+        fflush(NULL); // Flush the output buffer to ensure prompt is printed
+        int pipefd1[2];
+        int e = pipe(pipefd1);
 
-  if (!fork()) {
-    close(pipefd1[0]);
+        if (e != 0)
+            continue;
 
-    dup2(pipefd1[1], 1);
+        if (!fork()) {
+            close(pipefd1[0]);
 
-    execl("/bin/ls", "ls", "-l", NULL);
-  }
+            dup2(pipefd1[1], 1);
 
-  int pipefd2[2];
-  pipe(pipefd2);
+            fprintf(stderr, "command 1!\n");
+            execl("/bin/ls", "ls", "-l", NULL);
+        }
 
-  if (!fork()) {
-    close(pipefd1[1]);
+        int pipefd2[2];
+        e = pipe(pipefd2);
+        if (e != 0)
+            continue;
 
-    dup2(pipefd1[0], 0);
-    dup2(pipefd2[1], 1);
+        if (!fork()) {
+            close(pipefd1[1]);
 
-    execl("/usr/bin/rev", "rev", NULL);
-  }
+            dup2(pipefd1[0], 0);
+            dup2(pipefd2[1], 1);
 
-  close(pipefd1[0]);
-  close(pipefd1[1]);
+            fprintf(stderr, "command 2!\n");
+            execl("/usr/bin/rev", "rev", NULL);
+        }
 
-  if (!fork()) {
-    close(pipefd2[1]);
+        close(pipefd1[0]);
+        close(pipefd1[1]);
 
-    dup2(pipefd2[0], 0);
+        if (!fork()) {
+            close(pipefd2[1]);
 
-    execl("/usr/bin/wc", "wc", "-l", NULL);
-  }
+            dup2(pipefd2[0], 0);
 
-  close(pipefd2[0]);
-  close(pipefd2[1]);
+            fprintf(stderr, "command 3!\n");
+            execl("/usr/bin/wc", "wc", "-l", NULL);
+        }
+        close(pipefd2[0]);
+        close(pipefd2[1]);
 
-  wait(NULL);
+        wait_all();
+        printf("This line should execute!\n");
+        i--;
+    }
 
-  printf("This line should execute!\n");
-
-  return 0;
+    return 0;
 }
 
 // int main(int argc, char *argv[]) {
