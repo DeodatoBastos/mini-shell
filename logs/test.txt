@@ -1,6 +1,0 @@
-INFO: 2024-04-05 09:12:34 -- executing: test
-WARNING: 2024-04-05 09:12:34 -- executing: test
-ERROR: 2024-04-05 09:12:34 -- executing: test
-INFO: 2024-04-05 09:14:50 -- executing: test
-WARNING: 2024-04-05 09:14:50 -- executing: test
-ERROR: 2024-04-05 09:14:50 -- executing: test
