@@ -2,13 +2,11 @@
 #include <assert.h>
 
 int test_file_logging() {
-    FILE* file = fopen("logs/test.txt", "a");
+    char *file = "log/test.txt";
 
     file_logging(file, 'i', "test");
     file_logging(file, 'w', "test");
     file_logging(file, 'e', "test");
-
-    fclose(file);
 
     return 0;
 }

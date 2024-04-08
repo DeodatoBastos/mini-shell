@@ -57,3 +57,6 @@ msh
 
 # bin folder
 bin/
+
+# logs folder
+logs/
