@@ -1,4 +1,7 @@
 #include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/wait.h>
 
 bool is_in_cmd(const char *str) {
@@ -84,21 +87,22 @@ void wait_all() {
         ;
 }
 
-char** split(char *str, char ch, int *count) {
-    char *token = strtok(str, &ch);
+char** split(char *str, char* ch, int *count) {
+    char *str_cpy = strdup(str);
+    char *token = strtok(str_cpy, ch);
+
     if (token == NULL) {
         *count = 0;
         return NULL;
     }
 
-    char *commands[MAX_ARGS];
-    commands[0] = strdup(token);
+    char **commands = malloc(sizeof(char *) * MAX_ARGS);
 
     // get commands
     int i;
-    for (i = 1; token != NULL; i++) {
-        token = strtok(NULL, DELIMITER);
+    for (i = 0; token != NULL; i++) {
         commands[i] = strdup(token);
+        token = strtok(NULL, ch);
     }
     *count = i;
 

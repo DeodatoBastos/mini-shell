@@ -71,4 +71,4 @@ void wait_all();
  * @param[out] count number of itens in the array
  * @return the arrys of string
  */
-char** split(char *str, char ch, int *count);
+char** split(char *str, char* ch, int *count);

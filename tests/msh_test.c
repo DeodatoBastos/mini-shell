@@ -1,5 +1,9 @@
 #include "../src/utils.h"
 #include <assert.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int test_file_logging() {
     char *file = "log/test.txt";
@@ -10,7 +14,6 @@ int test_file_logging() {
 
     return 0;
 }
-
 
 int test_execute() {
     char *argv[] = {"ls", "-la", NULL};
@@ -45,9 +48,26 @@ void test_is_pipe_cmd() {
     assert(is_pipe_cmd("command") == false);
 }
 
-// Test function for execute - Cannot be tested in isolation without actual implementation
+// Test function for split
+void test_split() {
+    char *str = "ls -la | ws -l";
+    int num_cmds;
+    char **commands = split(str, PIPE_CMD, &num_cmds);
+    if (commands == NULL)
+        assert(false);
 
-// Test function for file_logging - Cannot be tested in isolation without actual implementation
+    // for (int i = 0; i < num_cmds; i++) {
+    //     printf("cmd[%d] = %s\n", i, commands[i]);
+    // }
+
+    assert(strcmp(commands[0], "ls -la"));
+    assert(strcmp(commands[1], "ws -l"));
+
+    for (int i = 0; i < num_cmds; i++) {
+        free(commands[i]);
+    }
+    free(commands);
+}
 
 int main() {
     // Run tests
@@ -56,6 +76,7 @@ int main() {
     test_is_pipe_cmd();
     test_execute();
     test_file_logging();
+    test_split();
 
     printf("All tests passed!\n");
 
