@@ -11,6 +11,7 @@
 #define IN_CMD "<"
 #define OUT_CMD ">"
 #define PIPE_CMD "|"
+#define MAX_ARGS 64
 
 /**
  * @brief verify if a string is a in command: '<'
@@ -61,3 +62,13 @@ void file_logging(char *file_name, const char severity, const char *info);
  *
  */
 void wait_all();
+
+/**
+ * @brief split a string by 'ch' char into a array of string
+ *
+ * @param[in] str string to be splited
+ * @param[in] ch delimiter
+ * @param[out] count number of itens in the array
+ * @return the arrys of string
+ */
+char** split(char *str, char ch, int *count);

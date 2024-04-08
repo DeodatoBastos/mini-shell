@@ -80,6 +80,27 @@ void file_logging(char *file_name, const char severity, const char *info) {
 }
 
 void wait_all() {
-    while (wait(NULL) > 0);
+    while (wait(NULL) > 0)
+        ;
 }
 
+char** split(char *str, char ch, int *count) {
+    char *token = strtok(str, &ch);
+    if (token == NULL) {
+        *count = 0;
+        return NULL;
+    }
+
+    char *commands[MAX_ARGS];
+    commands[0] = strdup(token);
+
+    // get commands
+    int i;
+    for (i = 1; token != NULL; i++) {
+        token = strtok(NULL, DELIMITER);
+        commands[i] = strdup(token);
+    }
+    *count = i;
+
+    return commands;
+}
