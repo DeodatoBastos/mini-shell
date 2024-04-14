@@ -1,5 +1,6 @@
 #include "utils.h"
 #include <fcntl.h>
+#include <stdlib.h>
 #include <sys/wait.h>
 
 #define NO_CHANGES_CODE -2
@@ -143,8 +144,6 @@ int main() {
                         third_argv[i] = strdup(token);
                     }
                 }
-
-                third_cmd = strdup(third_argv[0]);
             }
 
             // change stdin
@@ -254,6 +253,16 @@ int main() {
                     fprintf(stderr, "Error while closing copy of default stdout\n");
                 }
             }
+
+            free(first_cmd);
+            for (int i = 0; i < first_argc; i++)
+                free(first_argv[i]);
+            free(second_cmd);
+            for (int i = 0; i < second_argc; i++)
+                free(second_argv[i]);
+            free(third_cmd);
+            for (int i = 0; i < third_argc; i++)
+                free(third_argv[i]);
         }
     }
     return 0;
