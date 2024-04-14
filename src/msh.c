@@ -1,6 +1,10 @@
 #include "utils.h"
 #include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 #define NO_CHANGES_CODE -2
 #define MAX_LINE_LENGTH 1024
@@ -19,7 +23,6 @@ int main() {
 
     while (true) {
         printf("\ncmd> ");
-        // fflush(stdout); // Flush the output buffer to ensure prompt is printed
 
         if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
             break;
@@ -27,128 +30,60 @@ int main() {
 
         // Remove trailing newline character if present
         buffer[strcspn(buffer, "\n")] = '\0';
+        if (strcmp(buffer, "") == 0)
+            continue;
 
-        // if (scanf("%[^\n]", buffer) == EOF)
-        //   break;
+        int num_cmds;
+        char **commands = split(buffer, PIPE_CMD, &num_cmds);
+        int fd_in = NO_CHANGES_CODE, fd_out = NO_CHANGES_CODE;
+        int input = STDIN_FILENO;
+        int pipefd[2];
 
-        char *token = strtok(buffer, DELIMITER);
-        if (token != NULL) {
-            int fd_in = NO_CHANGES_CODE, fd_out = NO_CHANGES_CODE;
-            char *first_argv[MAX_ARGS];
-            int first_argc = 1;
-            first_argv[0] = strdup(token);
-            char *first_cmd = strdup(token);
+        for (int i = 0; i < num_cmds; i++) {
+            trim(commands[i]);
+            char *token = strtok(commands[i], DELIMITER);
 
-            // get first argv
-            for (int i = 1; token != NULL && !is_pipe_cmd(token); i++) {
+            char *argv[MAX_ARGS];
+            argv[0] = strdup(token);
+            char *cmd = strdup(token);
+            int argc = 1;
+
+            // get argv
+            for (int j = 1; token != NULL; j++) {
                 token = strtok(NULL, DELIMITER);
 
                 // get new stdin
-                if (token != NULL && !is_pipe_cmd(token) && is_in_cmd(token)) {
+                if (i == 0 && token != NULL && is_in_cmd(token)) {
                     token = strtok(NULL, DELIMITER);
                     fd_in = open(token, O_RDONLY);
                     if (fd_in == ERROR_CODE) {
                         fprintf(stderr, "Error while open file: %s.\n", token);
                         continue;
                     }
-
                     token = strtok(NULL, DELIMITER);
                 }
 
                 // get new stdout
-                if (token != NULL && !is_pipe_cmd(token) && is_out_cmd(token)) {
+                if (i == num_cmds - 1 && token != NULL && is_out_cmd(token)) {
                     token = strtok(NULL, DELIMITER);
                     fd_out = open(token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
                     if (fd_out == ERROR_CODE) {
                         fprintf(stderr, "Error while open file: %s\n", token);
                         continue;
                     }
-
                     token = strtok(NULL, DELIMITER);
                 }
 
-                if (token == NULL || is_pipe_cmd(token))
-                    first_argv[i] = NULL;
+                if (token == NULL)
+                    argv[j] = NULL;
                 else {
-                    first_argc++;
-                    first_argv[i] = strdup(token);
+                    argc++;
+                    argv[j] = strdup(token);
                 }
-            }
-
-            char *second_argv[MAX_ARGS];
-            int second_argc = 0;
-            char *second_cmd;
-
-            // get second argv
-            if (token != NULL && is_pipe_cmd(token)) {
-                token = strtok(NULL, DELIMITER);
-                second_argv[0] = strdup(token);
-                second_cmd = strdup(token);
-                second_argc++;
-
-                for (int i = 1; token != NULL && !is_pipe_cmd(token); i++) {
-                    token = strtok(NULL, DELIMITER);
-
-                    // get new stdout
-                    if (token != NULL && !is_pipe_cmd(token) && is_out_cmd(token)) {
-                        token = strtok(NULL, DELIMITER);
-                        fd_out = open(token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-                        if (fd_out == ERROR_CODE) {
-                            fprintf(stderr, "Error while open file: %s\n", token);
-                            continue;
-                        }
-
-                        token = strtok(NULL, DELIMITER);
-                    }
-
-                    if (token == NULL || is_pipe_cmd(token))
-                        second_argv[i] = NULL;
-                    else {
-                        second_argc++;
-                        second_argv[i] = strdup(token);
-                    }
-                }
-            }
-
-            char *third_argv[MAX_ARGS];
-            int third_argc = 0;
-            char *third_cmd;
-
-            // get third argv
-            if (token != NULL && is_pipe_cmd(token)) {
-                token = strtok(NULL, DELIMITER);
-                third_argv[0] = strdup(token);
-                third_cmd = strdup(token);
-                third_argc++;
-
-                for (int i = 1; token != NULL && !is_pipe_cmd(token); i++) {
-                    token = strtok(NULL, DELIMITER);
-
-                    // get new stdout
-                    if (token != NULL && !is_pipe_cmd(token) && is_out_cmd(token)) {
-                        token = strtok(NULL, DELIMITER);
-                        fd_out = open(token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-                        if (fd_out == ERROR_CODE) {
-                            fprintf(stderr, "Error while open file: %s\n", token);
-                            continue;
-                        }
-
-                        token = strtok(NULL, DELIMITER);
-                    }
-
-                    if (token == NULL)
-                        third_argv[i] = NULL;
-                    else {
-                        third_argc++;
-                        third_argv[i] = strdup(token);
-                    }
-                }
-
-                third_cmd = strdup(third_argv[0]);
             }
 
             // change stdin
-            if (fd_in != NO_CHANGES_CODE) {
+            if (i == 0 && fd_in != NO_CHANGES_CODE) {
                 copy_in = dup(STDIN_FILENO);
                 if (copy_in == ERROR_CODE) {
                     fprintf(stderr, "Error while copying default stdin\n");
@@ -165,7 +100,7 @@ int main() {
             }
 
             // change stdout
-            if (fd_out != NO_CHANGES_CODE) {
+            if (i == num_cmds - 1 && fd_out != NO_CHANGES_CODE) {
                 copy_out = dup(STDOUT_FILENO);
                 if (copy_out == ERROR_CODE) {
                     fprintf(stderr, "Error while copying default stdout\n");
@@ -181,80 +116,58 @@ int main() {
                 }
             }
 
-            int pipefd1[2];
-            pipe(pipefd1);
+            char info[strlen("executing: ") + strlen(cmd) + 1];
+            sprintf(info, "executing: %s", cmd);
+            file_logging(log_path, 'i', info);
 
-            // execute first program
-            if (!fork()) {
-                close(pipefd1[0]);
+            if (i < num_cmds - 1) {
+                pipe(pipefd);
+                execute_cio(argv, cmd, path, envp, input, pipefd[1]);
+                close(pipefd[1]);
+                input = pipefd[0];
+            } else {
+                execute_cio(argv, cmd, path, envp, input, STDOUT_FILENO);
+            }
+            free(cmd);
+            for (int i = 0; i < argc; i++) {
+                free(argv[i]);
+            }
+            file_logging(log_path, 'i', "end of fork");
+        }
 
-                if (second_argc)
-                    dup2(pipefd1[1], STDOUT_FILENO);
-                else
-                    close(pipefd1[1]);
+        close(pipefd[0]);
+        close(pipefd[1]);
+        file_logging(log_path, 'i', "after loop");
 
-                file_logging(log_path, 'i', first_cmd);
-                execute(first_argv, first_cmd, path, envp);
+        // comeback to default stdin
+        if (fd_in != NO_CHANGES_CODE) {
+            if (dup2(copy_in, STDIN_FILENO) == ERROR_CODE) {
+                fprintf(stderr, "Error while changing stdin\n");
             }
 
-            int pipefd2[2];
-            pipe(pipefd2);
-
-            // execute second program
-            if (second_argc && !fork()) {
-                close(pipefd1[1]);
-
-                dup2(pipefd1[0], STDIN_FILENO);
-                if (third_argc)
-                    dup2(pipefd2[1], STDOUT_FILENO);
-                else
-                    close(pipefd2[1]);
-
-                file_logging(log_path, 'i', second_cmd);
-                execute(second_argv, second_cmd, path, envp);
-            }
-
-            close(pipefd1[0]);
-            close(pipefd1[1]);
-
-            // execute third program
-            if (third_argc && !fork()) {
-                close(pipefd2[1]);
-
-                dup2(pipefd2[0], STDIN_FILENO);
-
-                file_logging(log_path, 'i', third_cmd);
-                execute(third_argv, third_cmd, path, envp);
-            }
-
-            close(pipefd2[0]);
-            close(pipefd2[1]);
-
-            file_logging(log_path, 'i', "before wait");
-            wait_all();
-
-            // comeback to default stdin
-            if (fd_in != NO_CHANGES_CODE) {
-                if (dup2(copy_in, STDIN_FILENO) == ERROR_CODE) {
-                    fprintf(stderr, "Error while changing stdin\n");
-                }
-
-                if (close(copy_in) == ERROR_CODE) {
-                    fprintf(stderr, "Error while closing copy of default stdin\n");
-                }
-            }
-
-            // comeback to default stdout
-            if (fd_out != NO_CHANGES_CODE) {
-                if (dup2(copy_out, STDOUT_FILENO) == ERROR_CODE) {
-                    fprintf(stderr, "Error while changing stdout\n");
-                }
-
-                if (close(copy_out) == ERROR_CODE) {
-                    fprintf(stderr, "Error while closing copy of default stdout\n");
-                }
+            if (close(copy_in) == ERROR_CODE) {
+                fprintf(stderr, "Error while closing copy of default stdin\n");
             }
         }
+
+        // comeback to default stdout
+        if (fd_out != NO_CHANGES_CODE) {
+            if (dup2(copy_out, STDOUT_FILENO) == ERROR_CODE) {
+                fprintf(stderr, "Error while changing stdout\n");
+            }
+
+            if (close(copy_out) == ERROR_CODE) {
+                fprintf(stderr, "Error while closing copy of default stdout\n");
+            }
+        }
+
+        for (int i = 0; i < num_cmds; i++) {
+            free(commands[i]);
+        }
+        free(commands);
+        file_logging(log_path, 'i', "end of while");
     }
+
+    file_logging(log_path, 'i', "end of file");
     return 0;
 }

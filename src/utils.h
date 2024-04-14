@@ -49,6 +49,18 @@ bool is_pipe_cmd(const char *str);
 void execute(char **argv, char *cmd, char *path, char *const *envp);
 
 /**
+ * @brief execute a command changing stdin and/or stdout
+ *
+ * @param argv all the orguments of the command
+ * @param cmd the command
+ * @param path the path envirioment variable
+ * @param envp a list of envirioment variable
+ * @param fd_in file descripter of new default input
+ * @param fd_out file descripter of new default output
+ */
+void execute_cio(char **argv, char *cmd, char *path, char *const *envp, int fd_in, int fd_out);
+
+/**
  * @brief loggin info into a file
  *
  * @param file pointer to file

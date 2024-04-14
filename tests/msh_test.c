@@ -6,11 +6,13 @@
 #include <string.h>
 
 int test_file_logging() {
-    char *file = "log/test.txt";
+    char *file = "logs/test.txt";
 
-    file_logging(file, 'i', "test");
-    file_logging(file, 'w', "test");
-    file_logging(file, 'e', "test");
+    char info[strlen("executing: ") + strlen("test") + 1];
+    sprintf(info, "executing: %s", "test");
+    file_logging(file, 'i', info);
+    file_logging(file, 'w', info);
+    file_logging(file, 'e', info);
 
     return 0;
 }

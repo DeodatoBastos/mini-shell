@@ -56,3 +56,520 @@ INFO: 2024-04-08 09:06:14 -- executing: before wait
 INFO: 2024-04-08 09:06:14 -- executing: grep
 INFO: 2024-04-08 09:06:17 -- executing: before wait
 INFO: 2024-04-08 09:06:17 -- executing: ls
+INFO: 2024-04-08 14:48:20 -- executing: before wait
+INFO: 2024-04-08 14:48:20 -- executing: ls
+INFO: 2024-04-08 14:49:51 -- executing: before wait
+INFO: 2024-04-08 14:49:51 -- executing: ls
+INFO: 2024-04-08 14:50:06 -- executing: before wait
+INFO: 2024-04-08 14:50:06 -- executing: ls
+INFO: 2024-04-08 15:14:08 -- executing: before wait
+INFO: 2024-04-08 15:14:08 -- executing: ls
+INFO: 2024-04-08 15:14:09 -- executing: before wait
+INFO: 2024-04-08 15:14:09 -- executing: ls
+INFO: 2024-04-08 15:14:10 -- executing: before wait
+INFO: 2024-04-08 15:14:10 -- executing: ls
+INFO: 2024-04-08 15:14:14 -- executing: before wait
+INFO: 2024-04-08 15:14:14 -- executing: ls
+INFO: 2024-04-08 15:14:21 -- executing: before wait
+INFO: 2024-04-08 15:14:21 -- executing: ls
+INFO: 2024-04-08 15:14:25 -- executing: before wait
+INFO: 2024-04-08 15:14:25 -- executing: cat
+INFO: 2024-04-08 15:14:30 -- executing: before wait
+INFO: 2024-04-08 15:14:30 -- executing: rm
+INFO: 2024-04-08 15:14:40 -- executing: cat
+INFO: 2024-04-08 15:14:40 -- executing: before wait
+INFO: 2024-04-08 15:14:40 -- executing: sort
+INFO: 2024-04-08 15:14:50 -- executing: cat
+INFO: 2024-04-08 15:14:50 -- executing: sorte
+INFO: 2024-04-08 15:14:50 -- executing: before wait
+INFO: 2024-04-08 15:14:50 -- executing: grep
+INFO: 2024-04-08 15:14:50 -- executing: before wait
+INFO: 2024-04-08 15:14:50 -- executing: grep
+INFO: 2024-04-08 15:16:47 -- executing: ls
+INFO: 2024-04-08 15:16:47 -- executing: before wait
+INFO: 2024-04-08 15:16:47 -- executing: grep
+INFO: 2024-04-08 15:16:48 -- executing: before wait
+INFO: 2024-04-08 15:16:48 -- executing: ls
+INFO: 2024-04-08 15:16:57 -- executing: ls
+INFO: 2024-04-08 15:16:57 -- executing: before wait
+INFO: 2024-04-08 15:16:57 -- executing: sort
+INFO: 2024-04-08 15:17:04 -- executing: ls
+INFO: 2024-04-08 15:17:04 -- executing: sort
+INFO: 2024-04-08 15:17:04 -- executing: before wait
+INFO: 2024-04-08 15:17:04 -- executing: grep
+INFO: 2024-04-08 15:20:45 -- executing: before wait
+INFO: 2024-04-08 15:20:45 -- executing: ls
+INFO: 2024-04-08 15:20:48 -- executing: before wait
+INFO: 2024-04-08 15:20:48 -- executing: ls
+INFO: 2024-04-08 15:20:55 -- executing: before wait
+INFO: 2024-04-08 15:20:55 -- executing: ls
+INFO: 2024-04-08 15:21:04 -- executing: before wait
+INFO: 2024-04-08 15:21:04 -- executing: cat
+INFO: 2024-04-08 15:21:09 -- executing: before wait
+INFO: 2024-04-08 15:21:09 -- executing: cat
+INFO: 2024-04-08 15:21:13 -- executing: before wait
+INFO: 2024-04-08 15:21:13 -- executing: rm
+INFO: 2024-04-08 15:21:17 -- executing: before wait
+INFO: 2024-04-08 15:21:17 -- executing: cat
+INFO: 2024-04-08 15:21:23 -- executing: before wait
+INFO: 2024-04-08 15:21:23 -- executing: cat
+INFO: 2024-04-08 15:21:30 -- executing: cat
+INFO: 2024-04-08 15:21:30 -- executing: before wait
+INFO: 2024-04-08 15:21:30 -- executing: sort
+INFO: 2024-04-08 15:21:40 -- executing: cat
+INFO: 2024-04-08 15:21:40 -- executing: before wait
+INFO: 2024-04-08 15:21:40 -- executing: sort
+INFO: 2024-04-08 15:22:51 -- executing: cat
+INFO: 2024-04-08 15:22:51 -- executing: sort
+INFO: 2024-04-08 15:23:13 -- executing: cat
+INFO: 2024-04-08 15:23:13 -- executing: sort
+INFO: 2024-04-08 15:23:13 -- executing: grep
+INFO: 2024-04-08 15:23:24 -- executing: cat
+INFO: 2024-04-08 15:23:24 -- executing: sort
+INFO: 2024-04-08 15:23:24 -- executing: grep
+INFO: 2024-04-08 15:23:27 -- executing: cat
+INFO: 2024-04-08 15:23:27 -- executing: sort
+INFO: 2024-04-08 15:23:27 -- executing: grep
+INFO: 2024-04-08 15:23:34 -- executing: cat
+INFO: 2024-04-08 15:23:34 -- executing: sort
+INFO: 2024-04-08 15:23:37 -- executing: ls
+INFO: 2024-04-08 15:23:39 -- executing: ls
+INFO: 2024-04-10 19:29:14 -- executing: ls
+INFO: 2024-04-10 19:30:54 -- executing: ls
+INFO: 2024-04-10 19:31:03 -- executing: ls
+INFO: 2024-04-10 19:31:03 -- executing: grep
+INFO: 2024-04-10 19:31:15 -- executing: cat
+INFO: 2024-04-10 19:31:15 -- executing: sort
+INFO: 2024-04-10 19:31:15 -- executing: grep
+INFO: 2024-04-10 19:31:55 -- executing: ls
+INFO: 2024-04-10 19:32:14 -- executing: ls
+INFO: 2024-04-10 19:32:39 -- executing: make
+INFO: 2024-04-10 19:32:41 -- executing: make
+INFO: 2024-04-10 19:32:45 -- executing: ls
+INFO: 2024-04-10 19:33:25 -- executing: ls
+INFO: 2024-04-10 19:33:37 -- executing: cat
+INFO: 2024-04-10 19:33:37 -- executing: sort
+INFO: 2024-04-10 19:33:37 -- executing: grep
+INFO: 2024-04-10 19:33:50 -- executing: ls
+INFO: 2024-04-10 19:33:56 -- executing: ls
+INFO: 2024-04-10 19:33:56 -- executing: cat
+INFO: 2024-04-10 19:34:29 -- executing: ls
+INFO: 2024-04-10 19:34:34 -- end of file
+INFO: 2024-04-10 19:35:37 -- end of file
+INFO: 2024-04-10 19:36:14 -- executing: ls
+INFO: 2024-04-10 19:36:14 -- end of while
+INFO: 2024-04-10 19:36:20 -- executing: ls
+INFO: 2024-04-10 19:36:20 -- executing: grep
+INFO: 2024-04-10 19:36:20 -- end of while
+INFO: 2024-04-10 19:36:47 -- executing: make
+INFO: 2024-04-10 19:36:47 -- end of while
+INFO: 2024-04-10 19:36:52 -- executing: ls
+INFO: 2024-04-10 19:36:52 -- end of while
+INFO: 2024-04-10 19:37:01 -- end of fork
+INFO: 2024-04-10 19:37:01 -- executing: ls
+INFO: 2024-04-10 19:37:01 -- end of while
+INFO: 2024-04-10 19:37:14 -- end of fork
+INFO: 2024-04-10 19:37:14 -- executing: ls
+INFO: 2024-04-10 19:37:14 -- end of fork
+INFO: 2024-04-10 19:37:14 -- executing: grep
+INFO: 2024-04-10 19:37:14 -- end of while
+INFO: 2024-04-10 19:37:45 -- end of fork
+INFO: 2024-04-10 19:37:45 -- executing: ls
+INFO: 2024-04-10 19:37:45 -- end of while
+INFO: 2024-04-10 19:37:49 -- end of fork
+INFO: 2024-04-10 19:37:49 -- executing: ls
+INFO: 2024-04-10 19:37:49 -- end of while
+INFO: 2024-04-10 19:38:07 -- end of fork
+INFO: 2024-04-10 19:38:07 -- executing: ls
+INFO: 2024-04-10 19:38:07 -- end of fork
+INFO: 2024-04-10 19:38:07 -- executing: grep
+INFO: 2024-04-10 19:38:07 -- end of while
+INFO: 2024-04-10 19:38:19 -- end of fork
+INFO: 2024-04-10 19:38:19 -- executing: ls
+INFO: 2024-04-10 19:38:19 -- end of while
+INFO: 2024-04-10 19:38:26 -- end of fork
+INFO: 2024-04-10 19:38:26 -- executing: ls
+INFO: 2024-04-10 19:38:26 -- end of while
+INFO: 2024-04-10 19:39:11 -- end of fork
+INFO: 2024-04-10 19:39:11 -- executing: cat
+INFO: 2024-04-10 19:39:11 -- end of fork
+INFO: 2024-04-10 19:39:11 -- executing: sort
+INFO: 2024-04-10 19:39:11 -- end of fork
+INFO: 2024-04-10 19:39:11 -- executing: grep
+INFO: 2024-04-10 19:44:39 -- end of fork
+INFO: 2024-04-10 19:44:39 -- executing: ls
+INFO: 2024-04-10 19:44:39 -- end of fork
+INFO: 2024-04-10 19:44:39 -- after wait
+INFO: 2024-04-10 19:44:39 -- end of while
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- executing: cat
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- executing: sort
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- executing: sort
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- executing: grep
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- after wait
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- end of while
+INFO: 2024-04-10 19:44:54 -- executing: grep
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- after wait
+INFO: 2024-04-10 19:44:54 -- executing: grep
+INFO: 2024-04-10 19:44:54 -- end of while
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- after wait
+INFO: 2024-04-10 19:44:54 -- executing: grep
+INFO: 2024-04-10 19:44:54 -- end of while
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- after wait
+INFO: 2024-04-10 19:44:54 -- end of while
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- executing: cmd>
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- executing: cmd>
+INFO: 2024-04-10 19:44:54 -- after wait
+INFO: 2024-04-10 19:44:54 -- end of while
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- after wait
+INFO: 2024-04-10 19:44:54 -- end of while
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- executing: cmd>
+INFO: 2024-04-10 19:44:54 -- end of fork
+INFO: 2024-04-10 19:44:54 -- after wait
+INFO: 2024-04-10 19:44:54 -- end of while
+INFO: 2024-04-10 19:45:48 -- end of fork
+INFO: 2024-04-10 19:45:48 -- executing: ls
+INFO: 2024-04-10 19:45:48 -- after wait
+INFO: 2024-04-10 19:45:48 -- end of while
+INFO: 2024-04-10 19:45:49 -- end of fork
+INFO: 2024-04-10 19:45:49 -- executing: ls
+INFO: 2024-04-10 19:45:49 -- after wait
+INFO: 2024-04-10 19:45:49 -- end of while
+INFO: 2024-04-10 19:45:50 -- end of fork
+INFO: 2024-04-10 19:45:50 -- executing: ls
+INFO: 2024-04-10 19:45:50 -- after wait
+INFO: 2024-04-10 19:45:50 -- end of while
+INFO: 2024-04-10 19:45:51 -- end of fork
+INFO: 2024-04-10 19:45:51 -- executing: ls
+INFO: 2024-04-10 19:45:51 -- after wait
+INFO: 2024-04-10 19:45:51 -- end of while
+INFO: 2024-04-10 19:45:51 -- end of fork
+INFO: 2024-04-10 19:45:51 -- executing: ls
+INFO: 2024-04-10 19:45:51 -- after wait
+INFO: 2024-04-10 19:45:51 -- end of while
+INFO: 2024-04-10 19:46:02 -- end of fork
+INFO: 2024-04-10 19:46:02 -- executing: cat
+INFO: 2024-04-10 19:46:02 -- end of fork
+INFO: 2024-04-10 19:46:02 -- executing: sort
+INFO: 2024-04-10 19:46:02 -- end of fork
+INFO: 2024-04-10 19:46:02 -- executing: grep
+INFO: 2024-04-10 19:52:09 -- end of fork
+INFO: 2024-04-10 19:52:09 -- close pipe 0
+INFO: 2024-04-10 19:52:09 -- close pipe 1
+INFO: 2024-04-10 19:52:09 -- executing: ls
+INFO: 2024-04-10 19:52:09 -- after wait
+INFO: 2024-04-10 19:52:09 -- end of while
+INFO: 2024-04-10 19:52:50 -- end of fork
+INFO: 2024-04-10 19:52:50 -- close pipe 0
+INFO: 2024-04-10 19:52:50 -- dup into stdout
+INFO: 2024-04-10 19:52:50 -- executing: ls
+INFO: 2024-04-10 19:52:50 -- end of fork
+INFO: 2024-04-10 19:52:50 -- dup into stdin
+INFO: 2024-04-10 19:52:50 -- close pipe 1
+INFO: 2024-04-10 19:52:50 -- executing: sort
+INFO: 2024-04-10 19:52:50 -- after wait
+INFO: 2024-04-10 19:52:50 -- end of while
+INFO: 2024-04-10 19:54:09 -- end of fork
+INFO: 2024-04-10 19:54:09 -- close pipe 0
+INFO: 2024-04-10 19:54:09 -- dup into stdout
+INFO: 2024-04-10 19:54:09 -- executing: ls
+INFO: 2024-04-10 19:54:09 -- end of fork
+INFO: 2024-04-10 19:54:09 -- dup into stdin
+INFO: 2024-04-10 19:54:09 -- dup into stdout
+INFO: 2024-04-10 19:54:09 -- executing: sort
+INFO: 2024-04-10 19:54:09 -- end of fork
+INFO: 2024-04-10 19:54:09 -- dup into stdin
+INFO: 2024-04-10 19:54:09 -- close pipe 1
+INFO: 2024-04-10 19:54:09 -- executing: grep
+INFO: 2024-04-14 13:21:14 -- end of fork
+INFO: 2024-04-14 13:21:14 -- close pipe 0
+INFO: 2024-04-14 13:21:15 -- after wait
+INFO: 2024-04-14 13:21:15 -- end of while
+INFO: 2024-04-14 13:25:03 -- end of fork
+INFO: 2024-04-14 13:25:03 -- close pipe 0
+INFO: 2024-04-14 13:25:03 -- close pipe 1
+INFO: 2024-04-14 13:25:03 -- executing: ls
+INFO: 2024-04-14 13:25:03 -- after wait
+INFO: 2024-04-14 13:25:03 -- end of while
+INFO: 2024-04-14 13:25:06 -- end of fork
+INFO: 2024-04-14 13:25:06 -- close pipe 0
+INFO: 2024-04-14 13:25:06 -- dup into stdout
+INFO: 2024-04-14 13:25:06 -- executing: ls
+INFO: 2024-04-14 13:25:06 -- end of fork
+INFO: 2024-04-14 13:25:06 -- dup into stdin
+INFO: 2024-04-14 13:25:06 -- close pipe 1
+INFO: 2024-04-14 13:25:06 -- executing: sort
+INFO: 2024-04-14 13:25:06 -- after wait
+INFO: 2024-04-14 13:25:06 -- end of while
+INFO: 2024-04-14 13:25:13 -- end of fork
+INFO: 2024-04-14 13:25:13 -- close pipe 0
+INFO: 2024-04-14 13:25:13 -- dup into stdout
+INFO: 2024-04-14 13:25:13 -- executing: ls
+INFO: 2024-04-14 13:25:13 -- end of fork
+INFO: 2024-04-14 13:25:13 -- dup into stdin
+INFO: 2024-04-14 13:25:13 -- dup into stdout
+INFO: 2024-04-14 13:25:13 -- executing: sort
+INFO: 2024-04-14 13:25:13 -- end of fork
+INFO: 2024-04-14 13:25:13 -- dup into stdin
+INFO: 2024-04-14 13:25:13 -- close pipe 1
+INFO: 2024-04-14 13:25:13 -- executing: grep
+INFO: 2024-04-14 13:54:38 -- executing: ls
+INFO: 2024-04-14 13:54:38 -- end of fork
+INFO: 2024-04-14 13:54:38 -- after wait
+INFO: 2024-04-14 13:54:38 -- end of while
+INFO: 2024-04-14 13:55:03 -- executing: ls
+INFO: 2024-04-14 13:55:03 -- end of fork
+INFO: 2024-04-14 13:55:03 -- after wait
+INFO: 2024-04-14 13:55:03 -- end of while
+INFO: 2024-04-14 13:59:00 -- executing: ls
+INFO: 2024-04-14 13:59:00 -- end of fork
+INFO: 2024-04-14 13:59:00 -- after wait
+INFO: 2024-04-14 13:59:00 -- end of while
+INFO: 2024-04-14 13:59:04 -- executing: ls
+INFO: 2024-04-14 13:59:04 -- end of fork
+INFO: 2024-04-14 13:59:04 -- after wait
+INFO: 2024-04-14 13:59:04 -- end of while
+INFO: 2024-04-14 13:59:04 -- executing: ls
+INFO: 2024-04-14 13:59:04 -- end of fork
+INFO: 2024-04-14 13:59:04 -- after wait
+INFO: 2024-04-14 13:59:04 -- end of while
+INFO: 2024-04-14 13:59:05 -- executing: ls
+INFO: 2024-04-14 13:59:05 -- end of fork
+INFO: 2024-04-14 13:59:05 -- after wait
+INFO: 2024-04-14 13:59:05 -- end of while
+INFO: 2024-04-14 13:59:07 -- executing: ls
+INFO: 2024-04-14 13:59:07 -- end of fork
+INFO: 2024-04-14 13:59:07 -- executing: sort
+INFO: 2024-04-14 13:59:07 -- end of fork
+INFO: 2024-04-14 13:59:07 -- after wait
+INFO: 2024-04-14 13:59:07 -- end of while
+INFO: 2024-04-14 13:59:14 -- executing: ls
+INFO: 2024-04-14 13:59:14 -- end of fork
+INFO: 2024-04-14 13:59:14 -- executing: sort
+INFO: 2024-04-14 13:59:14 -- end of fork
+INFO: 2024-04-14 13:59:14 -- executing: grep
+INFO: 2024-04-14 13:59:14 -- end of fork
+INFO: 2024-04-14 13:59:14 -- after wait
+INFO: 2024-04-14 13:59:14 -- end of while
+INFO: 2024-04-14 13:59:19 -- executing: ls
+INFO: 2024-04-14 13:59:19 -- end of fork
+INFO: 2024-04-14 13:59:19 -- after wait
+INFO: 2024-04-14 13:59:19 -- end of while
+INFO: 2024-04-14 13:59:20 -- executing: ls
+INFO: 2024-04-14 13:59:20 -- end of fork
+INFO: 2024-04-14 13:59:20 -- after wait
+INFO: 2024-04-14 13:59:20 -- end of while
+INFO: 2024-04-14 13:59:33 -- executing: cat
+INFO: 2024-04-14 13:59:33 -- end of fork
+INFO: 2024-04-14 13:59:33 -- executing: sort
+INFO: 2024-04-14 13:59:33 -- end of fork
+INFO: 2024-04-14 13:59:33 -- executing: grep
+INFO: 2024-04-14 13:59:33 -- end of fork
+INFO: 2024-04-14 13:59:33 -- after wait
+INFO: 2024-04-14 13:59:33 -- end of while
+INFO: 2024-04-14 13:59:53 -- end of file
+INFO: 2024-04-14 13:59:57 -- executing: ls
+INFO: 2024-04-14 13:59:57 -- end of fork
+INFO: 2024-04-14 13:59:57 -- after wait
+INFO: 2024-04-14 13:59:57 -- end of while
+INFO: 2024-04-14 14:00:30 -- executing: ls
+INFO: 2024-04-14 14:00:30 -- end of fork
+INFO: 2024-04-14 14:00:30 -- after wait
+INFO: 2024-04-14 14:00:30 -- end of while
+INFO: 2024-04-14 14:00:37 -- executing: ls
+INFO: 2024-04-14 14:00:37 -- end of fork
+INFO: 2024-04-14 14:00:37 -- after wait
+INFO: 2024-04-14 14:00:37 -- end of while
+INFO: 2024-04-14 14:00:37 -- end of file
+INFO: 2024-04-14 14:01:40 -- executing: ls
+INFO: 2024-04-14 14:01:40 -- end of fork
+INFO: 2024-04-14 14:01:40 -- after wait
+INFO: 2024-04-14 14:01:40 -- end of while
+INFO: 2024-04-14 14:01:40 -- end of file
+INFO: 2024-04-14 14:01:54 -- executing: ls
+INFO: 2024-04-14 14:01:54 -- end of fork
+INFO: 2024-04-14 14:01:54 -- after wait
+INFO: 2024-04-14 14:01:54 -- end of while
+INFO: 2024-04-14 14:01:54 -- end of file
+INFO: 2024-04-14 14:02:54 -- executing: ls
+INFO: 2024-04-14 14:02:54 -- end of fork
+INFO: 2024-04-14 14:02:54 -- after wait
+INFO: 2024-04-14 14:02:54 -- end of while
+INFO: 2024-04-14 14:02:56 -- executing: ls
+INFO: 2024-04-14 14:02:56 -- end of fork
+INFO: 2024-04-14 14:02:56 -- after wait
+INFO: 2024-04-14 14:02:56 -- end of while
+INFO: 2024-04-14 14:02:56 -- executing: ls
+INFO: 2024-04-14 14:02:56 -- end of fork
+INFO: 2024-04-14 14:02:56 -- after wait
+INFO: 2024-04-14 14:02:56 -- end of while
+INFO: 2024-04-14 14:02:57 -- executing: ls
+INFO: 2024-04-14 14:02:57 -- end of fork
+INFO: 2024-04-14 14:02:57 -- after wait
+INFO: 2024-04-14 14:02:57 -- end of while
+INFO: 2024-04-14 14:03:01 -- executing: ls
+INFO: 2024-04-14 14:03:01 -- end of fork
+INFO: 2024-04-14 14:03:01 -- after wait
+INFO: 2024-04-14 14:03:01 -- end of while
+INFO: 2024-04-14 14:03:03 -- executing: cat
+INFO: 2024-04-14 14:03:03 -- end of fork
+INFO: 2024-04-14 14:03:03 -- after wait
+INFO: 2024-04-14 14:03:03 -- end of while
+INFO: 2024-04-14 14:03:17 -- executing: cat
+INFO: 2024-04-14 14:03:17 -- end of fork
+INFO: 2024-04-14 14:03:17 -- executing: sort
+INFO: 2024-04-14 14:03:17 -- end of fork
+INFO: 2024-04-14 14:03:17 -- executing: grep
+INFO: 2024-04-14 14:03:17 -- end of fork
+INFO: 2024-04-14 14:03:17 -- after wait
+INFO: 2024-04-14 14:03:17 -- end of while
+INFO: 2024-04-14 14:03:32 -- executing: cat
+INFO: 2024-04-14 14:03:32 -- end of fork
+INFO: 2024-04-14 14:03:32 -- executing: sort
+INFO: 2024-04-14 14:03:32 -- end of fork
+INFO: 2024-04-14 14:03:32 -- executing: grep
+INFO: 2024-04-14 14:03:32 -- end of fork
+INFO: 2024-04-14 14:03:32 -- after wait
+INFO: 2024-04-14 14:03:32 -- end of while
+INFO: 2024-04-14 14:03:35 -- executing: cat
+INFO: 2024-04-14 14:03:35 -- end of fork
+INFO: 2024-04-14 14:03:35 -- after wait
+INFO: 2024-04-14 14:03:35 -- end of while
+INFO: 2024-04-14 14:03:36 -- executing: ls
+INFO: 2024-04-14 14:03:36 -- end of fork
+INFO: 2024-04-14 14:03:36 -- after wait
+INFO: 2024-04-14 14:03:36 -- end of while
+INFO: 2024-04-14 14:03:40 -- executing: rm
+INFO: 2024-04-14 14:03:40 -- end of fork
+INFO: 2024-04-14 14:03:40 -- after wait
+INFO: 2024-04-14 14:03:40 -- end of while
+INFO: 2024-04-14 14:03:41 -- end of file
+INFO: 2024-04-14 14:08:41 -- executing: ls
+INFO: 2024-04-14 14:08:41 -- end of fork
+INFO: 2024-04-14 14:08:41 -- after loop
+INFO: 2024-04-14 14:08:41 -- end of while
+INFO: 2024-04-14 14:08:41 -- end of file
+INFO: 2024-04-14 14:10:59 -- executing: ls
+INFO: 2024-04-14 14:10:59 -- end of fork
+INFO: 2024-04-14 14:10:59 -- after loop
+INFO: 2024-04-14 14:10:59 -- end of while
+INFO: 2024-04-14 14:10:59 -- end of file
+INFO: 2024-04-14 14:11:03 -- executing: ls
+INFO: 2024-04-14 14:11:03 -- end of fork
+INFO: 2024-04-14 14:11:03 -- after loop
+INFO: 2024-04-14 14:11:03 -- end of while
+INFO: 2024-04-14 14:11:15 -- executing: ls
+INFO: 2024-04-14 14:11:15 -- end of fork
+INFO: 2024-04-14 14:11:15 -- after loop
+INFO: 2024-04-14 14:11:15 -- end of while
+INFO: 2024-04-14 14:11:18 -- end of file
+INFO: 2024-04-14 14:11:21 -- executing: ls
+INFO: 2024-04-14 14:11:21 -- end of fork
+INFO: 2024-04-14 14:11:21 -- after loop
+INFO: 2024-04-14 14:11:21 -- end of while
+INFO: 2024-04-14 14:11:21 -- end of file
+INFO: 2024-04-14 14:11:24 -- executing: ls
+INFO: 2024-04-14 14:11:24 -- end of fork
+INFO: 2024-04-14 14:11:24 -- after loop
+INFO: 2024-04-14 14:11:24 -- end of while
+INFO: 2024-04-14 14:12:13 -- executing: ls
+INFO: 2024-04-14 14:12:13 -- end of fork
+INFO: 2024-04-14 14:12:13 -- after loop
+INFO: 2024-04-14 14:12:13 -- end of while
+INFO: 2024-04-14 14:12:16 -- end of file
+INFO: 2024-04-14 14:12:29 -- executing: ls
+INFO: 2024-04-14 14:12:29 -- end of fork
+INFO: 2024-04-14 14:12:29 -- executing: sort
+INFO: 2024-04-14 14:12:29 -- end of fork
+INFO: 2024-04-14 14:12:29 -- after loop
+INFO: 2024-04-14 14:12:29 -- end of while
+INFO: 2024-04-14 14:12:30 -- executing: ls
+INFO: 2024-04-14 14:12:30 -- end of fork
+INFO: 2024-04-14 14:12:30 -- after loop
+INFO: 2024-04-14 14:12:30 -- end of while
+INFO: 2024-04-14 14:12:31 -- executing: ls
+INFO: 2024-04-14 14:12:31 -- end of fork
+INFO: 2024-04-14 14:12:31 -- after loop
+INFO: 2024-04-14 14:12:31 -- end of while
+INFO: 2024-04-14 14:12:32 -- executing: l
+INFO: 2024-04-14 14:12:32 -- end of fork
+INFO: 2024-04-14 14:12:32 -- after loop
+INFO: 2024-04-14 14:12:32 -- end of while
+INFO: 2024-04-14 14:15:02 -- executing: make
+INFO: 2024-04-14 14:15:02 -- end of fork
+INFO: 2024-04-14 14:15:02 -- after loop
+INFO: 2024-04-14 14:15:02 -- end of while
+INFO: 2024-04-14 14:15:05 -- executing: ls
+INFO: 2024-04-14 14:15:05 -- end of fork
+INFO: 2024-04-14 14:15:05 -- after loop
+INFO: 2024-04-14 14:15:05 -- end of while
+INFO: 2024-04-14 14:15:05 -- end of file
+INFO: 2024-04-14 14:15:09 -- executing: ls
+INFO: 2024-04-14 14:15:09 -- end of fork
+INFO: 2024-04-14 14:15:09 -- after loop
+INFO: 2024-04-14 14:15:09 -- end of while
+INFO: 2024-04-14 14:15:11 -- executing: ls
+INFO: 2024-04-14 14:15:11 -- end of fork
+INFO: 2024-04-14 14:15:11 -- executing: sort
+INFO: 2024-04-14 14:15:11 -- end of fork
+INFO: 2024-04-14 14:15:11 -- after loop
+INFO: 2024-04-14 14:15:11 -- end of while
+INFO: 2024-04-14 14:15:12 -- executing: ls
+INFO: 2024-04-14 14:15:12 -- end of fork
+INFO: 2024-04-14 14:15:12 -- after loop
+INFO: 2024-04-14 14:15:12 -- end of while
+INFO: 2024-04-14 14:15:12 -- executing: ls
+INFO: 2024-04-14 14:15:12 -- end of fork
+INFO: 2024-04-14 14:15:12 -- after loop
+INFO: 2024-04-14 14:15:12 -- end of while
+INFO: 2024-04-14 14:15:15 -- executing: ls
+INFO: 2024-04-14 14:15:15 -- end of fork
+INFO: 2024-04-14 14:15:15 -- after loop
+INFO: 2024-04-14 14:15:15 -- end of while
+INFO: 2024-04-14 14:15:15 -- end of file
+INFO: 2024-04-14 14:15:48 -- executing: ls
+INFO: 2024-04-14 14:15:48 -- end of fork
+INFO: 2024-04-14 14:15:48 -- after loop
+INFO: 2024-04-14 14:15:48 -- end of while
+INFO: 2024-04-14 14:15:49 -- executing: ls
+INFO: 2024-04-14 14:15:49 -- end of fork
+INFO: 2024-04-14 14:15:49 -- after loop
+INFO: 2024-04-14 14:15:49 -- end of while
+INFO: 2024-04-14 14:15:59 -- executing: ls
+INFO: 2024-04-14 14:15:59 -- end of fork
+INFO: 2024-04-14 14:15:59 -- executing: sort
+INFO: 2024-04-14 14:15:59 -- end of fork
+INFO: 2024-04-14 14:15:59 -- executing: sort
+INFO: 2024-04-14 14:15:59 -- end of fork
+INFO: 2024-04-14 14:15:59 -- executing: sort
+INFO: 2024-04-14 14:15:59 -- end of fork
+INFO: 2024-04-14 14:15:59 -- executing: grep
+INFO: 2024-04-14 14:15:59 -- end of fork
+INFO: 2024-04-14 14:15:59 -- after loop
+INFO: 2024-04-14 14:15:59 -- end of while
+INFO: 2024-04-14 14:16:05 -- executing: ls
+INFO: 2024-04-14 14:16:05 -- end of fork
+INFO: 2024-04-14 14:16:05 -- after loop
+INFO: 2024-04-14 14:16:05 -- end of while
+INFO: 2024-04-14 14:16:08 -- executing: ls
+INFO: 2024-04-14 14:16:08 -- end of fork
+INFO: 2024-04-14 14:16:08 -- after loop
+INFO: 2024-04-14 14:16:08 -- end of while
