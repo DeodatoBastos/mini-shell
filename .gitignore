@@ -60,3 +60,4 @@ bin/
 
 # logs folder
 logs/
+logs/log.txt
