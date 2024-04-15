@@ -15,3 +15,126 @@ INFO: 2024-04-15 16:48:59 -- end of fork
 INFO: 2024-04-15 16:48:59 -- after loop
 INFO: 2024-04-15 16:48:59 -- end of while
 INFO: 2024-04-15 16:49:00 -- end of file
+INFO: 2024-04-15 16:57:08 -- executing: ls
+INFO: 2024-04-15 16:57:08 -- end of fork
+INFO: 2024-04-15 16:57:08 -- after loop
+INFO: 2024-04-15 16:57:08 -- end of while
+INFO: 2024-04-15 16:57:10 -- executing: cler
+INFO: 2024-04-15 16:57:10 -- end of fork
+INFO: 2024-04-15 16:57:10 -- after loop
+INFO: 2024-04-15 16:57:10 -- end of while
+INFO: 2024-04-15 16:57:32 -- executing: make
+INFO: 2024-04-15 16:57:35 -- executing: ls
+INFO: 2024-04-15 16:57:35 -- end of fork
+INFO: 2024-04-15 16:57:35 -- after loop
+INFO: 2024-04-15 16:57:35 -- end of while
+INFO: 2024-04-15 16:57:36 -- end of file
+INFO: 2024-04-15 16:57:36 -- end of fork
+INFO: 2024-04-15 16:57:36 -- after loop
+INFO: 2024-04-15 16:57:36 -- end of while
+INFO: 2024-04-15 16:57:37 -- end of file
+INFO: 2024-04-15 16:57:59 -- executing: $HOST
+INFO: 2024-04-15 16:57:59 -- end of fork
+INFO: 2024-04-15 16:57:59 -- after loop
+INFO: 2024-04-15 16:57:59 -- end of while
+INFO: 2024-04-15 16:58:01 -- end of file
+INFO: 2024-04-15 16:58:44 -- executing: ls
+INFO: 2024-04-15 16:58:44 -- end of fork
+INFO: 2024-04-15 16:58:44 -- after loop
+INFO: 2024-04-15 16:58:44 -- end of while
+INFO: 2024-04-15 16:58:56 -- executing: echo
+INFO: 2024-04-15 16:58:56 -- end of fork
+INFO: 2024-04-15 16:58:56 -- after loop
+INFO: 2024-04-15 16:58:56 -- end of while
+INFO: 2024-04-15 16:59:03 -- end of file
+INFO: 2024-04-15 17:00:45 -- executing: make
+INFO: 2024-04-15 17:00:47 -- end of file
+INFO: 2024-04-15 17:00:47 -- end of fork
+INFO: 2024-04-15 17:00:47 -- after loop
+INFO: 2024-04-15 17:00:47 -- end of while
+INFO: 2024-04-15 17:00:49 -- end of file
+INFO: 2024-04-15 17:01:10 -- end of file
+INFO: 2024-04-15 17:07:13 -- end of file
+INFO: 2024-04-15 17:07:32 -- end of file
+INFO: 2024-04-15 17:12:34 -- executing: ls
+INFO: 2024-04-15 17:12:34 -- end of fork
+INFO: 2024-04-15 17:12:34 -- after loop
+INFO: 2024-04-15 17:12:34 -- end of while
+INFO: 2024-04-15 17:12:54 -- end of file
+INFO: 2024-04-15 17:13:05 -- executing: ls
+INFO: 2024-04-15 17:13:05 -- end of fork
+INFO: 2024-04-15 17:13:05 -- after loop
+INFO: 2024-04-15 17:13:05 -- end of while
+INFO: 2024-04-15 17:13:30 -- end of file
+INFO: 2024-04-15 17:13:41 -- executing: ls
+INFO: 2024-04-15 17:13:41 -- end of fork
+INFO: 2024-04-15 17:13:41 -- after loop
+INFO: 2024-04-15 17:13:41 -- end of while
+INFO: 2024-04-15 17:13:54 -- executing: /bin/ls
+INFO: 2024-04-15 17:13:54 -- end of fork
+INFO: 2024-04-15 17:13:54 -- after loop
+INFO: 2024-04-15 17:13:54 -- end of while
+INFO: 2024-04-15 17:15:11 -- end of file
+INFO: 2024-04-15 17:15:22 -- executing: ls
+INFO: 2024-04-15 17:15:22 -- end of fork
+INFO: 2024-04-15 17:15:22 -- after loop
+INFO: 2024-04-15 17:15:22 -- end of while
+INFO: 2024-04-15 17:17:03 -- end of file
+INFO: 2024-04-15 17:17:06 -- executing: ls
+INFO: 2024-04-15 17:17:06 -- end of fork
+INFO: 2024-04-15 17:17:06 -- after loop
+INFO: 2024-04-15 17:17:06 -- end of while
+INFO: 2024-04-15 17:17:07 -- executing: ls
+INFO: 2024-04-15 17:17:07 -- end of fork
+INFO: 2024-04-15 17:17:07 -- after loop
+INFO: 2024-04-15 17:17:07 -- end of while
+INFO: 2024-04-15 17:17:10 -- executing: ls
+INFO: 2024-04-15 17:17:10 -- end of fork
+INFO: 2024-04-15 17:17:10 -- after loop
+INFO: 2024-04-15 17:17:10 -- end of while
+INFO: 2024-04-15 17:18:58 -- executing: make
+INFO: 2024-04-15 17:18:58 -- end of fork
+INFO: 2024-04-15 17:18:58 -- after loop
+INFO: 2024-04-15 17:18:58 -- end of while
+INFO: 2024-04-15 17:19:01 -- end of file
+INFO: 2024-04-15 17:19:04 -- executing: ls
+INFO: 2024-04-15 17:19:04 -- end of fork
+INFO: 2024-04-15 17:19:04 -- after loop
+INFO: 2024-04-15 17:19:04 -- end of while
+INFO: 2024-04-15 17:19:06 -- executing: make
+INFO: 2024-04-15 17:19:06 -- end of fork
+INFO: 2024-04-15 17:19:06 -- after loop
+INFO: 2024-04-15 17:19:06 -- end of while
+INFO: 2024-04-15 17:19:06 -- executing: ls
+INFO: 2024-04-15 17:19:06 -- end of fork
+INFO: 2024-04-15 17:19:06 -- after loop
+INFO: 2024-04-15 17:19:06 -- end of while
+INFO: 2024-04-15 17:19:29 -- end of file
+INFO: 2024-04-15 17:19:33 -- executing: ls
+INFO: 2024-04-15 17:19:33 -- end of fork
+INFO: 2024-04-15 17:19:33 -- after loop
+INFO: 2024-04-15 17:19:33 -- end of while
+INFO: 2024-04-15 17:19:53 -- executing: make
+INFO: 2024-04-15 17:19:53 -- end of fork
+INFO: 2024-04-15 17:19:53 -- after loop
+INFO: 2024-04-15 17:19:53 -- end of while
+INFO: 2024-04-15 17:19:54 -- end of file
+INFO: 2024-04-15 17:19:57 -- executing: ls
+INFO: 2024-04-15 17:19:57 -- end of fork
+INFO: 2024-04-15 17:19:57 -- after loop
+INFO: 2024-04-15 17:19:57 -- end of while
+INFO: 2024-04-15 17:20:31 -- end of file
+INFO: 2024-04-15 17:20:38 -- executing: ls
+INFO: 2024-04-15 17:20:38 -- end of fork
+INFO: 2024-04-15 17:20:38 -- after loop
+INFO: 2024-04-15 17:20:38 -- end of while
+INFO: 2024-04-15 17:20:53 -- executing: ls
+INFO: 2024-04-15 17:20:53 -- end of fork
+INFO: 2024-04-15 17:20:53 -- after loop
+INFO: 2024-04-15 17:20:53 -- end of while
+INFO: 2024-04-15 17:21:00 -- end of file
+INFO: 2024-04-15 17:21:06 -- executing: ls
+INFO: 2024-04-15 17:21:06 -- end of fork
+INFO: 2024-04-15 17:21:06 -- after loop
+INFO: 2024-04-15 17:21:06 -- end of while
+INFO: 2024-04-15 17:21:07 -- end of file

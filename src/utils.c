@@ -37,9 +37,11 @@ void execute(char **argv, char *cmd, char *path, char *const *envp) {
     }
 
     char *pre;
-    for (pre = strtok(path, PATH_DELIMITER); pre != NULL; pre = strtok(NULL, PATH_DELIMITER)) {
-        char fullpath[strlen(pre) + strlen(cmd) + 1];
+    char *local_path = strdup(path);
+    for (pre = strtok(local_path, PATH_DELIMITER); pre != NULL; pre = strtok(NULL, PATH_DELIMITER)) {
+        char fullpath[strlen(pre) + strlen(cmd) + 2];
         strcpy(fullpath, pre);
+        strcat(fullpath, "/");
         free(argv[0]);
         argv[0] = strdup(strcat(fullpath, cmd));
 
@@ -53,6 +55,7 @@ void execute(char **argv, char *cmd, char *path, char *const *envp) {
             fprintf(stderr, "msh: command not found: %s\n", cmd);
         }
     }
+    free(local_path);
 }
 
 void execute_cio(char **argv, char *cmd, char *path, char *const *envp, int fd_in, int fd_out) {

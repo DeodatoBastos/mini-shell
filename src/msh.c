@@ -11,8 +11,14 @@
 #define MAX_ARGS 64
 
 int main() {
-    char *envp[] = {"PATH=/bin:/usr/bin:./", NULL};
-    char path[] = "/bin/:/usr/bin/:./";
+    char *path = getenv("PATH");
+    if (path == NULL)
+        path = "/bin/:/usr/bin/";
+    char *user = getenv("USER");
+    char fullenv[strlen("PATH=") + strlen(path) + 1];
+    strcpy(fullenv, "PATH=");
+    strcat(fullenv, path);
+    char *envp[] = {fullenv, NULL};
 
     printf("Welcome to the miniature-shell.\n");
     char buffer[MAX_LINE_LENGTH] = {0};
@@ -20,7 +26,7 @@ int main() {
     char *log_path = "logs/log.txt";
 
     while (true) {
-        printf("\ncmd> ");
+        printf("\n[%s] > ", user);
 
         if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
             break;
