@@ -573,3 +573,49 @@ INFO: 2024-04-14 14:16:08 -- executing: ls
 INFO: 2024-04-14 14:16:08 -- end of fork
 INFO: 2024-04-14 14:16:08 -- after loop
 INFO: 2024-04-14 14:16:08 -- end of while
+INFO: 2024-04-15 16:37:36 -- executing: ls
+INFO: 2024-04-15 16:37:36 -- end of fork
+INFO: 2024-04-15 16:37:36 -- after loop
+INFO: 2024-04-15 16:37:36 -- end of while
+INFO: 2024-04-15 16:38:36 -- end of file
+INFO: 2024-04-15 16:38:39 -- executing: ls
+INFO: 2024-04-15 16:38:39 -- end of fork
+INFO: 2024-04-15 16:38:39 -- after loop
+INFO: 2024-04-15 16:38:39 -- end of while
+INFO: 2024-04-15 16:38:43 -- executing: kk
+INFO: 2024-04-15 16:38:43 -- end of fork
+INFO: 2024-04-15 16:38:43 -- after loop
+INFO: 2024-04-15 16:38:43 -- end of while
+INFO: 2024-04-15 16:38:45 -- executing: ks
+INFO: 2024-04-15 16:38:45 -- end of fork
+INFO: 2024-04-15 16:38:45 -- after loop
+INFO: 2024-04-15 16:38:45 -- end of while
+INFO: 2024-04-15 16:42:39 -- end of file
+INFO: 2024-04-15 16:42:48 -- executing: ls
+INFO: 2024-04-15 16:42:48 -- end of fork
+INFO: 2024-04-15 16:42:48 -- after loop
+INFO: 2024-04-15 16:42:48 -- end of while
+INFO: 2024-04-15 16:43:02 -- executing: cat
+INFO: 2024-04-15 16:43:02 -- end of fork
+INFO: 2024-04-15 16:43:02 -- executing: sort
+INFO: 2024-04-15 16:43:02 -- end of fork
+INFO: 2024-04-15 16:43:02 -- executing: grep
+INFO: 2024-04-15 16:43:02 -- end of fork
+INFO: 2024-04-15 16:43:02 -- after loop
+INFO: 2024-04-15 16:43:02 -- end of while
+INFO: 2024-04-15 16:43:16 -- executing: cat
+INFO: 2024-04-15 16:43:16 -- end of fork
+INFO: 2024-04-15 16:43:16 -- executing: sort
+INFO: 2024-04-15 16:43:16 -- end of fork
+INFO: 2024-04-15 16:43:16 -- executing: sort
+INFO: 2024-04-15 16:43:16 -- end of fork
+INFO: 2024-04-15 16:43:16 -- executing: grep
+INFO: 2024-04-15 16:43:16 -- end of fork
+INFO: 2024-04-15 16:43:16 -- after loop
+INFO: 2024-04-15 16:43:16 -- end of while
+INFO: 2024-04-15 16:43:18 -- end of file
+INFO: 2024-04-15 16:43:33 -- executing: ls
+INFO: 2024-04-15 16:43:33 -- end of fork
+INFO: 2024-04-15 16:43:33 -- after loop
+INFO: 2024-04-15 16:43:33 -- end of while
+INFO: 2024-04-15 16:43:34 -- end of file

@@ -11,8 +11,6 @@
 #define MAX_ARGS 64
 
 int main() {
-    int copy_in, copy_out;
-
     char *envp[] = {"PATH=/bin:/usr/bin:./", NULL};
     char path[] = "/bin/:/usr/bin/:./";
 
@@ -32,6 +30,9 @@ int main() {
         buffer[strcspn(buffer, "\n")] = '\0';
         if (strcmp(buffer, "") == 0)
             continue;
+
+        int copy_in = dup(STDIN_FILENO);
+        int copy_out = dup(STDOUT_FILENO);
 
         int num_cmds;
         char **commands = split(buffer, PIPE_CMD, &num_cmds);
@@ -140,25 +141,21 @@ int main() {
         file_logging(log_path, 'i', "after loop");
 
         // comeback to default stdin
-        if (fd_in != NO_CHANGES_CODE) {
-            if (dup2(copy_in, STDIN_FILENO) == ERROR_CODE) {
-                fprintf(stderr, "Error while changing stdin\n");
-            }
+        if (dup2(copy_in, STDIN_FILENO) == ERROR_CODE) {
+            fprintf(stderr, "Error while changing stdin\n");
+        }
 
-            if (close(copy_in) == ERROR_CODE) {
-                fprintf(stderr, "Error while closing copy of default stdin\n");
-            }
+        if (close(copy_in) == ERROR_CODE) {
+            fprintf(stderr, "Error while closing copy of default stdin\n");
         }
 
         // comeback to default stdout
-        if (fd_out != NO_CHANGES_CODE) {
-            if (dup2(copy_out, STDOUT_FILENO) == ERROR_CODE) {
-                fprintf(stderr, "Error while changing stdout\n");
-            }
+        if (dup2(copy_out, STDOUT_FILENO) == ERROR_CODE) {
+            fprintf(stderr, "Error while changing stdout\n");
+        }
 
-            if (close(copy_out) == ERROR_CODE) {
-                fprintf(stderr, "Error while closing copy of default stdout\n");
-            }
+        if (close(copy_out) == ERROR_CODE) {
+            fprintf(stderr, "Error while closing copy of default stdout\n");
         }
 
         for (int i = 0; i < num_cmds; i++) {
