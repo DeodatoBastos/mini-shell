@@ -93,3 +93,25 @@ char** split(char *str, char* ch, int *count);
  * @return cleaned string
  */
 void trim(char *str);
+
+/**
+ * @brief get the PATH envirioment variable or get a default one
+ *
+ * @return path variable
+ */
+char* get_path();
+
+/**
+ * @brief get the env paramenters array based on path
+ *
+ * @param path env variable
+ * @return envp array
+ */
+char** get_envp(char *path);
+
+/**
+ * @brief free an array of strings
+ *
+ * @param arr array to be freed
+ */
+void free_char_array(char **arr);

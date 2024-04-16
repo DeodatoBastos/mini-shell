@@ -11,14 +11,9 @@
 #define MAX_ARGS 64
 
 int main() {
-    char *path = getenv("PATH");
-    if (path == NULL)
-        path = "/bin/:/usr/bin/";
+    char *path = get_path();
     char *user = getenv("USER");
-    char fullenv[strlen("PATH=") + strlen(path) + 1];
-    strcpy(fullenv, "PATH=");
-    strcat(fullenv, path);
-    char *envp[] = {fullenv, NULL};
+    char **envp = get_envp(path);
 
     printf("Welcome to the miniature-shell.\n");
     char buffer[MAX_LINE_LENGTH] = {0};
@@ -50,7 +45,7 @@ int main() {
             trim(commands[i]);
             char *token = strtok(commands[i], DELIMITER);
 
-            char *argv[MAX_ARGS];
+            char **argv = malloc(sizeof(char) * MAX_ARGS);
             argv[0] = strdup(token);
             char *cmd = strdup(token);
             int argc = 1;
@@ -135,9 +130,7 @@ int main() {
                 execute_cio(argv, cmd, path, envp, input, STDOUT_FILENO);
             }
             free(cmd);
-            for (int i = 0; i < argc; i++) {
-                free(argv[i]);
-            }
+            free_char_array(argv);
             file_logging(log_path, 'i', "end of fork");
         }
 
@@ -163,13 +156,11 @@ int main() {
             fprintf(stderr, "Error while closing copy of default stdout\n");
         }
 
-        for (int i = 0; i < num_cmds; i++) {
-            free(commands[i]);
-        }
-        free(commands);
+        free_char_array(commands);
         file_logging(log_path, 'i', "end of while");
     }
 
+    free_char_array(envp);
     file_logging(log_path, 'i', "end of file");
     return 0;
 }

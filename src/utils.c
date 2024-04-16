@@ -38,7 +38,8 @@ void execute(char **argv, char *cmd, char *path, char *const *envp) {
 
     char *pre;
     char *local_path = strdup(path);
-    for (pre = strtok(local_path, PATH_DELIMITER); pre != NULL; pre = strtok(NULL, PATH_DELIMITER)) {
+    for (pre = strtok(local_path, PATH_DELIMITER); pre != NULL;
+         pre = strtok(NULL, PATH_DELIMITER)) {
         char fullpath[strlen(pre) + strlen(cmd) + 2];
         strcpy(fullpath, pre);
         strcat(fullpath, "/");
@@ -108,7 +109,8 @@ void file_logging(char *file_name, const char severity, const char *info) {
 }
 
 void wait_all() {
-    while (wait(NULL) > 0);
+    while (wait(NULL) > 0)
+        ;
 }
 
 char **split(char *str, char *ch, int *count) {
@@ -129,6 +131,7 @@ char **split(char *str, char *ch, int *count) {
         token = strtok(NULL, ch);
     }
     *count = i;
+    commands[i] = NULL;
 
     free(str_cpy);
     return commands;
@@ -143,4 +146,38 @@ void trim(char *str) {
 
     while (isspace((unsigned char)str[strlen(str) - 1]))
         str[strlen(str) - 1] = '\0';
+}
+
+char *get_path() {
+    char *path = getenv("PATH");
+    if (path == NULL) {
+        path = strdup("/bin/:/usr/bin/");
+    }
+    return path;
+}
+
+char **get_envp(char *path) {
+    if (path == NULL) {
+        char **envp = {NULL};
+        return envp;
+    }
+
+    char *fullenv = malloc((strlen("PATH=") + strlen(path) + 1) * sizeof(char));
+    strcpy(fullenv, "PATH=");
+    strcat(fullenv, path);
+    char **envp = malloc(sizeof(char *) * 2);
+    envp[0] = strdup(fullenv);
+    envp[1] = NULL;
+    free(fullenv);
+    return envp;
+}
+
+void free_char_array(char **arr) {
+    if (arr == NULL)
+        return;
+
+    for (int i = 0; arr[i] != NULL; i++) {
+        free(arr[i]);
+    }
+    free(arr);
 }
