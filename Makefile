@@ -1,8 +1,11 @@
 # compiler
 CC = gcc
 
-# flags
-CFLAGS = -pedantic -Wall -Wextra -Werror -fsanitize=address -fsanitize=leak
+# base flags
+BASE_CFLAGS = -pedantic -Wall -Wextra -Werror
+
+# debug flags
+DEBUG_FLAGS = -fsanitize=address -fsanitize=leak -g
 
 # build target
 SRC_FOLDER = src
@@ -28,8 +31,21 @@ OBJECTS = $(SOURCES:$(SRC_FOLDER)/%.c=$(BIN_FOLDER)/%.o)
 # list of test object files
 TEST_OBJECTS = $(TEST_SOURCES:$(TEST_FOLDER)/%.c=$(TEST_BIN_FOLDER)/%.o)
 
+# flag file to track build mode
+BUILD_MODE_FLAG = $(BIN_FOLDER)/.build_mode
+
+
+# determine CFLAGS based on debug flag
+ifdef DEBUG
+    CFLAGS = $(BASE_CFLAGS) $(DEBUG_FLAGS)
+    BUILD_MODE = debug
+else
+    CFLAGS = $(BASE_CFLAGS)
+    BUILD_MODE = release
+endif
+
 # main target
-all: $(BIN_FOLDER)/$(TARGET)
+all: check_build_mode $(BIN_FOLDER)/$(TARGET)
 
 # link object files into executable
 $(BIN_FOLDER)/$(TARGET): $(OBJECTS)
@@ -65,6 +81,22 @@ test_run: test
 	./$(TEST_BIN_FOLDER)/$(TARGET)_test
 
 clean:
-	rm -rf $(BIN_FOLDER) $(TEST_BIN_FOLDER)
+	rm -rf $(BIN_FOLDER) $(TEST_BIN_FOLDER) $(BUILD_MODE_FLAG)
 
-.PHONY: all run clean test_run test
+.PHONY: all run test test_run clean debug check_build_mode
+
+# special debug target
+debug: 
+	$(MAKE) DEBUG=1
+
+# check if build mode has changed and clean if necessary
+check_build_mode:
+	@# Check if the build mode has changed and clean if it has
+	@if [ -f $(BUILD_MODE_FLAG) ]; then \
+		if [ "$$(cat $(BUILD_MODE_FLAG))" != "$(BUILD_MODE)" ]; then \
+			$(MAKE) clean; \
+		fi \
+	fi
+	@# Update the build mode flag
+	@echo "$(BUILD_MODE)" > $(BUILD_MODE_FLAG)
+
