@@ -10,10 +10,13 @@
 #define MAX_LINE_LENGTH 1024
 #define MAX_ARGS 64
 
+extern char **environ;
+
+// int main(int argc, char *argv[], char *envp[]) {
 int main() {
     char *path = get_path();
     char *user = getenv("USER");
-    char **envp = get_envp(path);
+    // char **envp = get_envp(path);
 
     printf("Welcome to the miniature-shell.\n");
     char buffer[MAX_LINE_LENGTH] = {0};
@@ -123,11 +126,11 @@ int main() {
 
             if (i < num_cmds - 1) {
                 pipe(pipefd);
-                execute_cio(argv, cmd, path, envp, input, pipefd[1]);
+                execute_cio(argv, cmd, path, environ, input, pipefd[1]);
                 close(pipefd[1]);
                 input = pipefd[0];
             } else {
-                execute_cio(argv, cmd, path, envp, input, STDOUT_FILENO);
+                execute_cio(argv, cmd, path, environ, input, STDOUT_FILENO);
             }
             free(cmd);
             free_char_array(argv);
@@ -160,7 +163,7 @@ int main() {
         file_logging(log_path, 'i', "end of while");
     }
 
-    free_char_array(envp);
+    // free_char_array();
     file_logging(log_path, 'i', "end of file");
     return 0;
 }
